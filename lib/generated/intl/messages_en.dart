@@ -22,90 +22,95 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "addWeight": MessageLookupByLibrary.simpleMessage("Add Weight"),
+        "addWeight": MessageLookupByLibrary.simpleMessage("Aggiungi Peso"),
         "appName": MessageLookupByLibrary.simpleMessage("Health Tips"),
         "bmi": MessageLookupByLibrary.simpleMessage("BMI"),
-        "bmiCalculator": MessageLookupByLibrary.simpleMessage("BMI Calculator"),
-        "categories": MessageLookupByLibrary.simpleMessage("Categories"),
+        "bmiCalculator":
+            MessageLookupByLibrary.simpleMessage("Calcolatore BMI"),
+        "categories": MessageLookupByLibrary.simpleMessage("Categorie"),
         "cm": MessageLookupByLibrary.simpleMessage("cm"),
-        "continueText": MessageLookupByLibrary.simpleMessage("Continue"),
-        "daysDiet": MessageLookupByLibrary.simpleMessage("7 Days Diet"),
-        "dishes": MessageLookupByLibrary.simpleMessage("Dishes"),
+        "continueText": MessageLookupByLibrary.simpleMessage("Continua"),
+        "daysDiet": MessageLookupByLibrary.simpleMessage("Dieta di 7 giorni"),
+        "dishes": MessageLookupByLibrary.simpleMessage("Piatti"),
         "dontHaveAnAccount":
-            MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
-        "editProfile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
+            MessageLookupByLibrary.simpleMessage("Non hai un account?"),
+        "editProfile": MessageLookupByLibrary.simpleMessage("Modifica Profilo"),
         "emailAddressHint":
-            MessageLookupByLibrary.simpleMessage("Email Address"),
-        "favourite": MessageLookupByLibrary.simpleMessage("Favourite"),
+            MessageLookupByLibrary.simpleMessage("Indirizzo Email"),
+        "favourite": MessageLookupByLibrary.simpleMessage("Preferito"),
         "feedback": MessageLookupByLibrary.simpleMessage("Feedback"),
-        "female": MessageLookupByLibrary.simpleMessage("Female"),
-        "firstName": MessageLookupByLibrary.simpleMessage("First Name"),
+        "female": MessageLookupByLibrary.simpleMessage("Femmina"),
+        "firstName": MessageLookupByLibrary.simpleMessage("Nome"),
         "forgotPassword":
-            MessageLookupByLibrary.simpleMessage("Forgot Password?"),
-        "ft": MessageLookupByLibrary.simpleMessage("ft"),
-        "gender": MessageLookupByLibrary.simpleMessage("Gender"),
+            MessageLookupByLibrary.simpleMessage("Password dimenticata?"),
+        "ft": MessageLookupByLibrary.simpleMessage("piedi"),
+        "gender": MessageLookupByLibrary.simpleMessage("Genere"),
         "gladToMeetnyouAgain":
-            MessageLookupByLibrary.simpleMessage("Glad to meet\nyou again!"),
-        "healthTips": MessageLookupByLibrary.simpleMessage("Health Tips"),
+            MessageLookupByLibrary.simpleMessage("Felice di rincontrarti!"),
+        "healthTips":
+            MessageLookupByLibrary.simpleMessage("Consigli per la salute"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "howTallAreYou":
-            MessageLookupByLibrary.simpleMessage("How tall are you?"),
-        "inches": MessageLookupByLibrary.simpleMessage("in"),
+            MessageLookupByLibrary.simpleMessage("Quanto sei alto?"),
+        "inches": MessageLookupByLibrary.simpleMessage("pollici"),
         "kg": MessageLookupByLibrary.simpleMessage("Kg"),
-        "lastName": MessageLookupByLibrary.simpleMessage("Last Name"),
-        "lbs": MessageLookupByLibrary.simpleMessage("lbs"),
-        "logOut": MessageLookupByLibrary.simpleMessage("Log out"),
-        "male": MessageLookupByLibrary.simpleMessage("Male"),
-        "manageDietPreference":
-            MessageLookupByLibrary.simpleMessage("Manage Diet Preference"),
+        "lastName": MessageLookupByLibrary.simpleMessage("Cognome"),
+        "lbs": MessageLookupByLibrary.simpleMessage("libbre"),
+        "logOut": MessageLookupByLibrary.simpleMessage("Esci"),
+        "male": MessageLookupByLibrary.simpleMessage("Maschio"),
+        "manageDietPreference": MessageLookupByLibrary.simpleMessage(
+            "Gestisci Preferenze Alimentari"),
         "manageHealthCalculation":
-            MessageLookupByLibrary.simpleMessage("Manage Health Calculation"),
-        "next": MessageLookupByLibrary.simpleMessage("Next"),
-        "nightMode": MessageLookupByLibrary.simpleMessage("Night Mode"),
-        "notification": MessageLookupByLibrary.simpleMessage("Notification"),
-        "or": MessageLookupByLibrary.simpleMessage("Or"),
+            MessageLookupByLibrary.simpleMessage("Gestisci Calcolo Salute"),
+        "next": MessageLookupByLibrary.simpleMessage("Avanti"),
+        "nightMode": MessageLookupByLibrary.simpleMessage("Modalità Notturna"),
+        "notification": MessageLookupByLibrary.simpleMessage("Notifiche"),
+        "or": MessageLookupByLibrary.simpleMessage("O"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
-        "phone": MessageLookupByLibrary.simpleMessage("Phone"),
-        "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone number"),
+        "phone": MessageLookupByLibrary.simpleMessage("Telefono"),
+        "phoneNumber":
+            MessageLookupByLibrary.simpleMessage("Numero di telefono"),
         "pleaseSelectYourGender":
-            MessageLookupByLibrary.simpleMessage("Please select your gender"),
-        "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
-        "rateUs": MessageLookupByLibrary.simpleMessage("Rate Us"),
-        "rememberMe": MessageLookupByLibrary.simpleMessage("Remember me"),
-        "reminder": MessageLookupByLibrary.simpleMessage("Reminder"),
-        "repeat": MessageLookupByLibrary.simpleMessage("Repeat"),
-        "resend": MessageLookupByLibrary.simpleMessage("Resend"),
-        "save": MessageLookupByLibrary.simpleMessage("Save"),
-        "seeAll": MessageLookupByLibrary.simpleMessage("See All"),
-        "selectDays": MessageLookupByLibrary.simpleMessage("Select Days"),
-        "selectGender": MessageLookupByLibrary.simpleMessage("Select Gender"),
-        "send": MessageLookupByLibrary.simpleMessage("Send"),
-        "setting": MessageLookupByLibrary.simpleMessage("Setting"),
-        "share": MessageLookupByLibrary.simpleMessage("Share"),
-        "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),
-        "signInNow": MessageLookupByLibrary.simpleMessage("Sign In Now"),
-        "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
+            MessageLookupByLibrary.simpleMessage("Seleziona il tuo genere"),
+        "privacyPolicy":
+            MessageLookupByLibrary.simpleMessage("Informativa sulla privacy"),
+        "rateUs": MessageLookupByLibrary.simpleMessage("Vota"),
+        "rememberMe": MessageLookupByLibrary.simpleMessage("Ricordami"),
+        "reminder": MessageLookupByLibrary.simpleMessage("Promemoria"),
+        "repeat": MessageLookupByLibrary.simpleMessage("Ripeti"),
+        "resend": MessageLookupByLibrary.simpleMessage("Reinvia"),
+        "save": MessageLookupByLibrary.simpleMessage("Salva"),
+        "seeAll": MessageLookupByLibrary.simpleMessage("Vedi tutto"),
+        "selectDays": MessageLookupByLibrary.simpleMessage("Seleziona Giorni"),
+        "selectGender":
+            MessageLookupByLibrary.simpleMessage("Seleziona Genere"),
+        "send": MessageLookupByLibrary.simpleMessage("Invia"),
+        "setting": MessageLookupByLibrary.simpleMessage("Impostazioni"),
+        "share": MessageLookupByLibrary.simpleMessage("Condividi"),
+        "signIn": MessageLookupByLibrary.simpleMessage("Accedi"),
+        "signInNow": MessageLookupByLibrary.simpleMessage("Accedi Ora"),
+        "signUp": MessageLookupByLibrary.simpleMessage("Iscriviti"),
         "signUpAndnstaringWorkout": MessageLookupByLibrary.simpleMessage(
-            "Sign up and\nstarting workout"),
-        "signUpNow": MessageLookupByLibrary.simpleMessage("Sign Up Now"),
+            "Iscriviti e inizia l\'allenamento"),
+        "signUpNow": MessageLookupByLibrary.simpleMessage("Registrati Ora"),
         "toGiveYouABetterExperienceNweNeedToKnow":
             MessageLookupByLibrary.simpleMessage(
-                "To give you a better experience \nwe need to know your weight."),
+                "Per offrirti un\'esperienza migliore, \nabbiamo bisogno di sapere il tuo peso."),
         "toGiveYouABetterExperienceNweNeedToKnowHeight":
             MessageLookupByLibrary.simpleMessage(
-                "To give you a better experience \nwe need to know your height."),
+                "Per offrirti un\'esperienza migliore, \nabbiamo bisogno di sapere la tua altezza."),
         "userInformation":
-            MessageLookupByLibrary.simpleMessage("User Information"),
-        "verification": MessageLookupByLibrary.simpleMessage("Verification"),
+            MessageLookupByLibrary.simpleMessage("Informazioni Utente"),
+        "verification": MessageLookupByLibrary.simpleMessage("Verifica"),
         "weNeedYourRegistrationEmailToSendYouPasswordReset":
             MessageLookupByLibrary.simpleMessage(
-                "We need your registration email to send you password reset code!"),
-        "weight": MessageLookupByLibrary.simpleMessage("WEIGHT"),
+                "Abbiamo bisogno della tua email di registrazione per inviarti il codice di reset della password!"),
+        "weight": MessageLookupByLibrary.simpleMessage("PESO"),
         "whatIsYourWeight":
-            MessageLookupByLibrary.simpleMessage("What is your weight?"),
-        "youHaveAnAlreadyAccount": MessageLookupByLibrary.simpleMessage(
-            "You have an already account?"),
-        "yourEmail": MessageLookupByLibrary.simpleMessage("Your Email"),
-        "yourName": MessageLookupByLibrary.simpleMessage("Your Name")
+            MessageLookupByLibrary.simpleMessage("Qual è il tuo peso?"),
+        "youHaveAnAlreadyAccount":
+            MessageLookupByLibrary.simpleMessage("Hai già un account?"),
+        "yourEmail": MessageLookupByLibrary.simpleMessage("La Tua Email"),
+        "yourName": MessageLookupByLibrary.simpleMessage("Il Tuo Nome")
       };
 }

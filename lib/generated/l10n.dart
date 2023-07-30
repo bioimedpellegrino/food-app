@@ -70,20 +70,20 @@ class S {
     );
   }
 
-  /// `Dishes`
+  /// `Piatti`
   String get dishes {
     return Intl.message(
-      'Dishes',
+      'Piatti',
       name: 'dishes',
       desc: '',
       args: [],
     );
   }
 
-  /// `Health Tips`
+  /// `Consigli per la salute`
   String get healthTips {
     return Intl.message(
-      'Health Tips',
+      'Consigli per la salute',
       name: 'healthTips',
       desc: '',
       args: [],
@@ -100,80 +100,80 @@ class S {
     );
   }
 
-  /// `Setting`
+  /// `Impostazioni`
   String get setting {
     return Intl.message(
-      'Setting',
+      'Impostazioni',
       name: 'setting',
       desc: '',
       args: [],
     );
   }
 
-  /// `See All`
+  /// `Vedi tutto`
   String get seeAll {
     return Intl.message(
-      'See All',
+      'Vedi tutto',
       name: 'seeAll',
       desc: '',
       args: [],
     );
   }
 
-  /// `Categories`
+  /// `Categorie`
   String get categories {
     return Intl.message(
-      'Categories',
+      'Categorie',
       name: 'categories',
       desc: '',
       args: [],
     );
   }
 
-  /// `7 Days Diet`
+  /// `Dieta di 7 giorni`
   String get daysDiet {
     return Intl.message(
-      '7 Days Diet',
+      'Dieta di 7 giorni',
       name: 'daysDiet',
       desc: '',
       args: [],
     );
   }
 
-  /// `BMI Calculator`
+  /// `Calcolatore BMI`
   String get bmiCalculator {
     return Intl.message(
-      'BMI Calculator',
+      'Calcolatore BMI',
       name: 'bmiCalculator',
       desc: '',
       args: [],
     );
   }
 
-  /// `Continue`
+  /// `Continua`
   String get continueText {
     return Intl.message(
-      'Continue',
+      'Continua',
       name: 'continueText',
       desc: '',
       args: [],
     );
   }
 
-  /// `What is your weight?`
+  /// `Qual è il tuo peso?`
   String get whatIsYourWeight {
     return Intl.message(
-      'What is your weight?',
+      'Qual è il tuo peso?',
       name: 'whatIsYourWeight',
       desc: '',
       args: [],
     );
   }
 
-  /// `How tall are you?`
+  /// `Quanto sei alto?`
   String get howTallAreYou {
     return Intl.message(
-      'How tall are you?',
+      'Quanto sei alto?',
       name: 'howTallAreYou',
       desc: '',
       args: [],
@@ -190,10 +190,10 @@ class S {
     );
   }
 
-  /// `lbs`
+  /// `libbre`
   String get lbs {
     return Intl.message(
-      'lbs',
+      'libbre',
       name: 'lbs',
       desc: '',
       args: [],
@@ -210,100 +210,100 @@ class S {
     );
   }
 
-  /// `ft`
+  /// `piedi`
   String get ft {
     return Intl.message(
-      'ft',
+      'piedi',
       name: 'ft',
       desc: '',
       args: [],
     );
   }
 
-  /// `in`
+  /// `pollici`
   String get inches {
     return Intl.message(
-      'in',
+      'pollici',
       name: 'inches',
       desc: '',
       args: [],
     );
   }
 
-  /// `Log out`
+  /// `Esci`
   String get logOut {
     return Intl.message(
-      'Log out',
+      'Esci',
       name: 'logOut',
       desc: '',
       args: [],
     );
   }
 
-  /// `Save`
+  /// `Salva`
   String get save {
     return Intl.message(
-      'Save',
+      'Salva',
       name: 'save',
       desc: '',
       args: [],
     );
   }
 
-  /// `Please select your gender`
+  /// `Seleziona il tuo genere`
   String get pleaseSelectYourGender {
     return Intl.message(
-      'Please select your gender',
+      'Seleziona il tuo genere',
       name: 'pleaseSelectYourGender',
       desc: '',
       args: [],
     );
   }
 
-  /// `Select Gender`
+  /// `Seleziona Genere`
   String get selectGender {
     return Intl.message(
-      'Select Gender',
+      'Seleziona Genere',
       name: 'selectGender',
       desc: '',
       args: [],
     );
   }
 
-  /// `Male`
+  /// `Maschio`
   String get male {
     return Intl.message(
-      'Male',
+      'Maschio',
       name: 'male',
       desc: '',
       args: [],
     );
   }
 
-  /// `Female`
+  /// `Femmina`
   String get female {
     return Intl.message(
-      'Female',
+      'Femmina',
       name: 'female',
       desc: '',
       args: [],
     );
   }
 
-  /// `Privacy Policy`
+  /// `Informativa sulla privacy`
   String get privacyPolicy {
     return Intl.message(
-      'Privacy Policy',
+      'Informativa sulla privacy',
       name: 'privacyPolicy',
       desc: '',
       args: [],
     );
   }
 
-  /// `Share`
+  /// `Condividi`
   String get share {
     return Intl.message(
-      'Share',
+      'Condividi',
       name: 'share',
       desc: '',
       args: [],
@@ -320,200 +320,200 @@ class S {
     );
   }
 
-  /// `Rate Us`
+  /// `Vota`
   String get rateUs {
     return Intl.message(
-      'Rate Us',
+      'Vota',
       name: 'rateUs',
       desc: '',
       args: [],
     );
   }
 
-  /// `To give you a better experience \nwe need to know your weight.`
+  /// `Per offrirti un'esperienza migliore, \nabbiamo bisogno di sapere il tuo peso.`
   String get toGiveYouABetterExperienceNweNeedToKnow {
     return Intl.message(
-      'To give you a better experience \nwe need to know your weight.',
+      'Per offrirti un\'esperienza migliore, \nabbiamo bisogno di sapere il tuo peso.',
       name: 'toGiveYouABetterExperienceNweNeedToKnow',
       desc: '',
       args: [],
     );
   }
 
-  /// `To give you a better experience \nwe need to know your height.`
+  /// `Per offrirti un'esperienza migliore, \nabbiamo bisogno di sapere la tua altezza.`
   String get toGiveYouABetterExperienceNweNeedToKnowHeight {
     return Intl.message(
-      'To give you a better experience \nwe need to know your height.',
+      'Per offrirti un\'esperienza migliore, \nabbiamo bisogno di sapere la tua altezza.',
       name: 'toGiveYouABetterExperienceNweNeedToKnowHeight',
       desc: '',
       args: [],
     );
   }
 
-  /// `Night Mode`
+  /// `Modalità Notturna`
   String get nightMode {
     return Intl.message(
-      'Night Mode',
+      'Modalità Notturna',
       name: 'nightMode',
       desc: '',
       args: [],
     );
   }
 
-  /// `Edit Profile`
+  /// `Modifica Profilo`
   String get editProfile {
     return Intl.message(
-      'Edit Profile',
+      'Modifica Profilo',
       name: 'editProfile',
       desc: '',
       args: [],
     );
   }
 
-  /// `Notification`
+  /// `Notifiche`
   String get notification {
     return Intl.message(
-      'Notification',
+      'Notifiche',
       name: 'notification',
       desc: '',
       args: [],
     );
   }
 
-  /// `User Information`
+  /// `Informazioni Utente`
   String get userInformation {
     return Intl.message(
-      'User Information',
+      'Informazioni Utente',
       name: 'userInformation',
       desc: '',
       args: [],
     );
   }
 
-  /// `First Name`
+  /// `Nome`
   String get firstName {
     return Intl.message(
-      'First Name',
+      'Nome',
       name: 'firstName',
       desc: '',
       args: [],
     );
   }
 
-  /// `Last Name`
+  /// `Cognome`
   String get lastName {
     return Intl.message(
-      'Last Name',
+      'Cognome',
       name: 'lastName',
       desc: '',
       args: [],
     );
   }
 
-  /// `Email Address`
+  /// `Indirizzo Email`
   String get emailAddressHint {
     return Intl.message(
-      'Email Address',
+      'Indirizzo Email',
       name: 'emailAddressHint',
       desc: '',
       args: [],
     );
   }
 
-  /// `Phone`
+  /// `Telefono`
   String get phone {
     return Intl.message(
-      'Phone',
+      'Telefono',
       name: 'phone',
       desc: '',
       args: [],
     );
   }
 
-  /// `Gender`
+  /// `Genere`
   String get gender {
     return Intl.message(
-      'Gender',
+      'Genere',
       name: 'gender',
       desc: '',
       args: [],
     );
   }
 
-  /// `Reminder`
+  /// `Promemoria`
   String get reminder {
     return Intl.message(
-      'Reminder',
+      'Promemoria',
       name: 'reminder',
       desc: '',
       args: [],
     );
   }
 
-  /// `Repeat`
+  /// `Ripeti`
   String get repeat {
     return Intl.message(
-      'Repeat',
+      'Ripeti',
       name: 'repeat',
       desc: '',
       args: [],
     );
   }
 
-  /// `Select Days`
+  /// `Seleziona Giorni`
   String get selectDays {
     return Intl.message(
-      'Select Days',
+      'Seleziona Giorni',
       name: 'selectDays',
       desc: '',
       args: [],
     );
   }
 
-  /// `Glad to meet\nyou again!`
+  /// `Felice di rincontrarti!`
   String get gladToMeetnyouAgain {
     return Intl.message(
-      'Glad to meet\nyou again!',
+      'Felice di rincontrarti!',
       name: 'gladToMeetnyouAgain',
       desc: '',
       args: [],
     );
   }
 
-  /// `Your Email`
+  /// `La Tua Email`
   String get yourEmail {
     return Intl.message(
-      'Your Email',
+      'La Tua Email',
       name: 'yourEmail',
       desc: '',
       args: [],
     );
   }
 
-  /// `Verification`
+  /// `Verifica`
   String get verification {
     return Intl.message(
-      'Verification',
+      'Verifica',
       name: 'verification',
       desc: '',
       args: [],
     );
   }
 
-  /// `Resend`
+  /// `Reinvia`
   String get resend {
     return Intl.message(
-      'Resend',
+      'Reinvia',
       name: 'resend',
       desc: '',
       args: [],
     );
   }
 
-  /// `Next`
+  /// `Avanti`
   String get next {
     return Intl.message(
-      'Next',
+      'Avanti',
       name: 'next',
       desc: '',
       args: [],
@@ -530,190 +530,190 @@ class S {
     );
   }
 
-  /// `Remember me`
+  /// `Ricordami`
   String get rememberMe {
     return Intl.message(
-      'Remember me',
+      'Ricordami',
       name: 'rememberMe',
       desc: '',
       args: [],
     );
   }
 
-  /// `Sign In Now`
+  /// `Accedi Ora`
   String get signInNow {
     return Intl.message(
-      'Sign In Now',
+      'Accedi Ora',
       name: 'signInNow',
       desc: '',
       args: [],
     );
   }
 
-  /// `Sign Up Now`
+  /// `Registrati Ora`
   String get signUpNow {
     return Intl.message(
-      'Sign Up Now',
+      'Registrati Ora',
       name: 'signUpNow',
       desc: '',
       args: [],
     );
   }
 
-  /// `Or`
+  /// `O`
   String get or {
     return Intl.message(
-      'Or',
+      'O',
       name: 'or',
       desc: '',
       args: [],
     );
   }
 
-  /// `Your Name`
+  /// `Il Tuo Nome`
   String get yourName {
     return Intl.message(
-      'Your Name',
+      'Il Tuo Nome',
       name: 'yourName',
       desc: '',
       args: [],
     );
   }
 
-  /// `Phone number`
+  /// `Numero di telefono`
   String get phoneNumber {
     return Intl.message(
-      'Phone number',
+      'Numero di telefono',
       name: 'phoneNumber',
       desc: '',
       args: [],
     );
   }
 
-  /// `Forgot Password?`
+  /// `Password dimenticata?`
   String get forgotPassword {
     return Intl.message(
-      'Forgot Password?',
+      'Password dimenticata?',
       name: 'forgotPassword',
       desc: '',
       args: [],
     );
   }
 
-  /// `Sign up and\nstarting workout`
+  /// `Iscriviti e inizia l'allenamento`
   String get signUpAndnstaringWorkout {
     return Intl.message(
-      'Sign up and\nstarting workout',
+      'Iscriviti e inizia l\'allenamento',
       name: 'signUpAndnstaringWorkout',
       desc: '',
       args: [],
     );
   }
 
-  /// `You have an already account?`
+  /// `Hai già un account?`
   String get youHaveAnAlreadyAccount {
     return Intl.message(
-      'You have an already account?',
+      'Hai già un account?',
       name: 'youHaveAnAlreadyAccount',
       desc: '',
       args: [],
     );
   }
 
-  /// `Sign In`
+  /// `Accedi`
   String get signIn {
     return Intl.message(
-      'Sign In',
+      'Accedi',
       name: 'signIn',
       desc: '',
       args: [],
     );
   }
 
-  /// `Send`
+  /// `Invia`
   String get send {
     return Intl.message(
-      'Send',
+      'Invia',
       name: 'send',
       desc: '',
       args: [],
     );
   }
 
-  /// `We need your registration email to send you password reset code!`
+  /// `Abbiamo bisogno della tua email di registrazione per inviarti il codice di reset della password!`
   String get weNeedYourRegistrationEmailToSendYouPasswordReset {
     return Intl.message(
-      'We need your registration email to send you password reset code!',
+      'Abbiamo bisogno della tua email di registrazione per inviarti il codice di reset della password!',
       name: 'weNeedYourRegistrationEmailToSendYouPasswordReset',
       desc: '',
       args: [],
     );
   }
 
-  /// `Favourite`
+  /// `Preferito`
   String get favourite {
     return Intl.message(
-      'Favourite',
+      'Preferito',
       name: 'favourite',
       desc: '',
       args: [],
     );
   }
 
-  /// `Sign Up`
+  /// `Iscriviti`
   String get signUp {
     return Intl.message(
-      'Sign Up',
+      'Iscriviti',
       name: 'signUp',
       desc: '',
       args: [],
     );
   }
 
-  /// `Don't have an account?`
+  /// `Non hai un account?`
   String get dontHaveAnAccount {
     return Intl.message(
-      'Don\'t have an account?',
+      'Non hai un account?',
       name: 'dontHaveAnAccount',
       desc: '',
       args: [],
     );
   }
 
-  /// `Add Weight`
+  /// `Aggiungi Peso`
   String get addWeight {
     return Intl.message(
-      'Add Weight',
+      'Aggiungi Peso',
       name: 'addWeight',
       desc: '',
       args: [],
     );
   }
 
-  /// `WEIGHT`
+  /// `PESO`
   String get weight {
     return Intl.message(
-      'WEIGHT',
+      'PESO',
       name: 'weight',
       desc: '',
       args: [],
     );
   }
 
-  /// `Manage Health Calculation`
+  /// `Gestisci Calcolo Salute`
   String get manageHealthCalculation {
     return Intl.message(
-      'Manage Health Calculation',
+      'Gestisci Calcolo Salute',
       name: 'manageHealthCalculation',
       desc: '',
       args: [],
     );
   }
 
-  /// `Manage Diet Preference`
+  /// `Gestisci Preferenze Alimentari`
   String get manageDietPreference {
     return Intl.message(
-      'Manage Diet Preference',
+      'Gestisci Preferenze Alimentari',
       name: 'manageDietPreference',
       desc: '',
       args: [],
