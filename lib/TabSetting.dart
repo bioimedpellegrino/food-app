@@ -11,7 +11,7 @@ import 'package:flutter_share/flutter_share.dart';
 import 'EditProfilePage.dart';
 import 'FavouritePage.dart';
 import 'ReminderPage.dart';
-import 'SignUpPage.dart';
+import 'SignInPage.dart';
 import 'generated/l10n.dart';
 
 class TabSetting extends StatefulWidget {
@@ -440,7 +440,7 @@ class _TabSetting extends State<TabSetting> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => SignUpPage(),
+                        builder: (context) => SignInPage(),
                       ));
                 },
               ),
