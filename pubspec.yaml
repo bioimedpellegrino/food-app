@@ -46,6 +46,7 @@ dependencies:
 #  flutter_date_picker_timeline: any
 #  flutter_date_picker_timeline: ^0.3.0
   flutter_share: ^2.0.0
+  flutter_dotenv: ^5.0.2
 
   mailto: ^2.0.0
 #  intl: ^0.17.0
@@ -98,6 +99,7 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - .env
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
