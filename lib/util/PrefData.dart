@@ -9,6 +9,11 @@ class PrefData {
   static String keyHeight = pkgName+"keyHeight";
   static String isKg = pkgName+"isKg";
   static String isFirstTime = pkgName+"isFirstTime";
+  static String firstName = pkgName + "firstName";
+  static String lastName = pkgName + "lastName";
+  static String authToken = pkgName + "authToken";
+  static String username = pkgName + "username";
+  static String email = pkgName + "email";
 
 
   static setIsFirstTime(bool isFav) async {
@@ -73,6 +78,31 @@ class PrefData {
   static getIsIntro() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool(isIntro) ?? true;
+  }
+
+  static getFirstName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(firstName) ?? '';
+  }
+
+  static getLastName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(lastName) ?? '';
+  }
+
+  static getEmail() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(email) ?? '';
+  }
+
+  static getUserName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(username) ?? '';
+  }
+
+  static getAuthToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(authToken) ?? '';
   }
 
   static setThemeMode(int isFav) async {

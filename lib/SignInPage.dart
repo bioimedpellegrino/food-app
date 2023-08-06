@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_diet_tips/FirstPage.dart';
+import 'package:flutter_diet_tips/HomePage.dart';
+import 'package:flutter_diet_tips/TabDiet.dart';
 import 'package:flutter_diet_tips/util/ConstantData.dart';
 import 'package:flutter_diet_tips/util/ConstantWidget.dart';
 import 'package:flutter_diet_tips/util/PrefData.dart';
+import 'package:flutter_diet_tips/util/ApiService.dart';
 
 import 'ForgotPassword.dart';
-import 'SignUpPage.dart';
 import 'generated/l10n.dart';
 
 class SignInPage extends StatefulWidget {
@@ -43,13 +45,7 @@ class _SignInPage extends State<SignInPage> {
             elevation: 0,
             title: Text(""),
             leading: GestureDetector(
-              onTap: () {
-                _requestPop();
-              },
-              child: Icon(
-                Icons.keyboard_backspace,
-                color: textColor,
-              ),
+              onTap: () {},
             ),
           ),
           body: Container(
@@ -73,12 +69,6 @@ class _SignInPage extends State<SignInPage> {
                 getTextFiled(
                     S.of(context).password, textPasswordController, true),
 
-                //
-                // getDefaultTextFiledWidget(
-                //     context, S.of(context).yourEmail, textNameController),
-                // getPasswordTextFiled(
-                //     context, S.of(context).password, textPasswordController),
-
                 InkWell(
                   child: getTextWidget(
                     S.of(context).forgotPassword,
@@ -100,63 +90,31 @@ class _SignInPage extends State<SignInPage> {
                 ),
 
                 getTextButtonWidget(
-                    context, S.of(context).signIn, Colors.orangeAccent, () {
-                  PrefData.setIsSignIn(true);
-                  PrefData.setIsIntro(false);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => FirstPage(),
-                      ));
+                    context, S.of(context).signIn, Colors.orangeAccent,  () async {
+                    bool loginSuccess = await ApiService().login(textNameController.text, textPasswordController.text);
+                    if (loginSuccess) {
+                      PrefData.setIsSignIn(true);
+                      PrefData.setIsIntro(false);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomePage(),
+                        ),
+                      );
+                    } else {
+                      final snackBar = SnackBar(
+                        content: Text('Credenziali errate. Riprova.', style: TextStyle(color: Colors.white)),
+                        duration: Duration(seconds: 3),
+                        backgroundColor: Colors.red,
+                        behavior: SnackBarBehavior.floating,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0), // Raggio dei bordi
+                        )
+                      );
+
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
                 }),
-
-                // Padding(padding: EdgeInsets.symmetric(vertical: getScreenPercentSize(context,.5)),child: Center(
-                //   child: getTextWidget(
-                //       S.of(context).or,
-                //       textColor,
-                //       TextAlign.center,
-                //       FontWeight.w300,
-                //       getScreenPercentSize(context, 1.8)),
-                // ),),
-
-                // getTextButtonWidget(context, S.of(context).signUpNow,
-                //     primaryColor, () {
-                //   Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpPage(),));
-                // }),
-
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: getScreenPercentSize(context, .5)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      getTextWidget(
-                          S.of(context).dontHaveAnAccount,
-                          textColor,
-                          TextAlign.left,
-                          FontWeight.w500,
-                          getScreenPercentSize(context, 1.8)),
-                      SizedBox(
-                        width: getScreenPercentSize(context, 0.5),
-                      ),
-                      InkWell(
-                        child: getTextWidget(
-                            S.of(context).signUp,
-                            primaryColor,
-                            TextAlign.start,
-                            FontWeight.bold,
-                            getScreenPercentSize(context, 2)),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SignUpPage(),
-                              ));
-                        },
-                      )
-                    ],
-                  ),
-                )
               ],
             ),
           ),
