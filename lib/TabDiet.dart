@@ -221,6 +221,9 @@ class _TabDiet extends State<TabDiet> {
                               )
                             ),
                             Padding(
+                              padding: EdgeInsets.symmetric(vertical: 5),
+                            ),
+                            Padding(
                               padding: EdgeInsets.symmetric(horizontal: 8.0),
                               child: getTextWidget(
                                   getWeekString(),
