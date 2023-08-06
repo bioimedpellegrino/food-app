@@ -12,7 +12,6 @@ import 'FirstPage.dart';
 import 'IntroPage.dart';
 import 'SignUpPage.dart';
 import 'generated/l10n.dart';
-import 'config.dart';
 
 void main() {
 
@@ -21,30 +20,15 @@ void main() {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
 
-  var configuredApp;
-  const String environment = String.fromEnvironment('APP_ENV', defaultValue: 'PROD');
-
-  switch (environment) {
-    case 'LOCAL':
-      configuredApp = MyApp(config: Config.local());
-      break;
-    case 'PROD':
-      configuredApp = MyApp(config: Config.prod());
-      break;
-    default:
-      throw Exception('Ambiente non riconosciuto: $environment');
-  }
-
   runApp(
-    configuredApp,
+    MyApp(),
+
   );
 
 }
 
 class MyApp extends StatelessWidget {
-  final Config config;
-
-  const MyApp({Key? key, required this.config}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -60,7 +44,7 @@ class MyApp extends StatelessWidget {
         S.delegate
       ],
       supportedLocales: [
-        Locale('it', 'IT'), Locale('en', 'US'), Locale('en', 'GB')
+        Locale('en', 'US'), Locale('en', 'GB')
       ],
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
