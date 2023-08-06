@@ -59,6 +59,55 @@ class PrefData {
     return intValue;
   }
 
+  getFirstName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(firstName) ?? '';
+  }
+
+  getLastName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(lastName) ?? '';
+  }
+
+  getEmail() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(email) ?? '';
+  }
+
+  getUserName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(username) ?? '';
+  }
+
+  getAuthToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(authToken) ?? '';
+  }
+
+  static setFirstName(String name) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(firstName, name);
+  }
+
+  static setLastName(String name) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(lastName, name);
+  }
+
+  static setAuthToken(String token) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(authToken, token);
+  }
+
+  static setEmail(String mail) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(email, mail);
+  }
+
+  static setUsername(String user) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(username, user);
+  }
 
   static setIsSignIn(bool isFav) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -78,31 +127,6 @@ class PrefData {
   static getIsIntro() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool(isIntro) ?? true;
-  }
-
-  static getFirstName() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(firstName) ?? '';
-  }
-
-  static getLastName() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(lastName) ?? '';
-  }
-
-  static getEmail() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(email) ?? '';
-  }
-
-  static getUserName() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(username) ?? '';
-  }
-
-  static getAuthToken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(authToken) ?? '';
   }
 
   static setThemeMode(int isFav) async {

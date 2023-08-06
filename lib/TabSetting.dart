@@ -435,7 +435,6 @@ class _TabSetting extends State<TabSetting> {
                 ),
                 onTap: () async {
                   PrefData.setIsSignIn(false);
-                  PrefData.setIsFirstTime(true);
 
                   Navigator.push(
                       context,

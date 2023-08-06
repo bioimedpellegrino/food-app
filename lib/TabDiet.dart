@@ -7,9 +7,11 @@ import 'package:flutter_diet_tips/util/ConstantWidget.dart';
 import 'package:flutter_diet_tips/util/DataFile.dart';
 import 'package:flutter_diet_tips/util/SizeConfig.dart';
 import 'package:visibility_detector/visibility_detector.dart';
+import 'package:flutter_diet_tips/util/PrefData.dart';
 
 import 'YourDietDetailPage.dart';
 import 'model/FoodModel.dart';
+import 'package:intl/intl.dart';
 
 class TabDiet extends StatefulWidget {
   final ValueChanged<int> valueChanged;
@@ -25,12 +27,15 @@ class TabDiet extends StatefulWidget {
 class _TabDiet extends State<TabDiet> {
   int categoryPosition = 0;
   DateTime dateTime = DateTime.now();
+  final datePickerController = DatePickerController();
 
   List<String> list = ["Colazione", "Snack", "Pranzo", "Cena"];
   final controller = CarouselController();
 
   List<FoodModel> sliderList = DataFile.getFoodList();
   List<CategoryModel> categoryList = DataFile.getCategoryList();
+  String firstName = "";
+  String lastName = "";
    // AutoScrollController? _controller;
 
   @override
@@ -41,11 +46,14 @@ class _TabDiet extends State<TabDiet> {
     //         Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
     //     axis: Axis.horizontal);
 
-
+    getUserData();
   }
 
+  getUserData() async {
+    firstName = await PrefData().getFirstName();
+    lastName = await PrefData().getLastName();
 
-
+  }
 
   List<String> ingredientsList = [
     "1 red apple",
@@ -67,6 +75,7 @@ class _TabDiet extends State<TabDiet> {
     double listHeight = getScreenPercentSize(context, 42);
     double radius1 = getPercentSize(appBarHeight, 25);
     double radius = getPercentSize(listHeight, 2);
+    
 
 
     return WillPopScope(
@@ -129,7 +138,7 @@ class _TabDiet extends State<TabDiet> {
 
                                 },
                                 child: getTextWidget(
-                                    "Hey, Sophia",
+                                    "Ciao, ${firstName} ${lastName}" ,
                                     Colors.white,
                                     TextAlign.start,
                                     FontWeight.w600,
@@ -140,7 +149,7 @@ class _TabDiet extends State<TabDiet> {
                               SizedBox(height: getPercentSize(
                                   appBarHeight, 3),),
                               getTextWidget(
-                                  "Il tuo piano di oggi",
+                                  "Ecco il tuo piano di oggi",
                                   Colors.white70,
                                   TextAlign.start,
                                   FontWeight.w300,
@@ -201,24 +210,34 @@ class _TabDiet extends State<TabDiet> {
                         padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 15),
                         child: Row(
                           children: [
-                            Icon(
-                              Icons.chevron_left,
-                              size: getScreenPercentSize(context, 3),
-                              color: primaryColor,
+                            GestureDetector(
+                              onTap: (){
+                                goToLastWeek();
+                              },
+                              child: Icon(
+                                Icons.chevron_left,
+                                size: getScreenPercentSize(context, 3),
+                                color: primaryColor,
+                              )
                             ),
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 8.0),
                               child: getTextWidget(
-                                  "Dec 24 - 30 Dec",
+                                  getWeekString(),
                                   primaryColor,
                                   TextAlign.start,
                                   FontWeight.bold,
                                   getScreenPercentSize(context, 2)),
                             ),
-                            Icon(
-                              Icons.navigate_next,
-                              size: getScreenPercentSize(context, 3),
-                              color: primaryColor,
+                            GestureDetector(
+                              onTap: (){
+                                goToNextWeek();
+                              },
+                              child: Icon(
+                                Icons.navigate_next,
+                                size: getScreenPercentSize(context, 3),
+                                color: primaryColor,
+                              )
                             )
                           ],
                         ),
@@ -231,6 +250,7 @@ class _TabDiet extends State<TabDiet> {
                         color: cellColor,
                         child: DatePicker(
                           DateTime.now(),
+                          controller: datePickerController,
                           initialSelectedDate: DateTime.now(),
                           selectionColor: primaryColor,
                           selectedTextColor: Colors.white,
@@ -326,7 +346,6 @@ class _TabDiet extends State<TabDiet> {
                                   if (info.visibleFraction == 1)
                                     setState(() {
                                       categoryPosition = index;
-
                                     });
                                 },
 
@@ -486,6 +505,34 @@ class _TabDiet extends State<TabDiet> {
         ),
       ),
     );
+  }
+
+  goToNextWeek(){
+    setState(() {
+      dateTime = dateTime.add(Duration(days: 7));
+      datePickerController.animateToDate(dateTime);
+    });  
+  }
+
+  goToLastWeek(){
+    DateTime oneWeekAgo = dateTime.subtract(Duration(days: 7));
+    DateTime today = DateTime.now();
+    oneWeekAgo = oneWeekAgo.isBefore(today) ? today : oneWeekAgo;
+    setState((){
+      dateTime = oneWeekAgo;
+    });
+    datePickerController.animateToDate(dateTime);
+
+  }
+
+  getWeekString(){
+    Intl.defaultLocale = 'it';
+    DateTime friday = dateTime.add(Duration(days: 5));
+
+    String sundayString = DateFormat('d MMM').format(dateTime);
+    String fridayString = DateFormat('d MMM').format(friday);
+
+    return '$sundayString - $fridayString';
   }
 
   getList(List<String> list, double height) {
