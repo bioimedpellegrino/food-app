@@ -7,8 +7,6 @@ import 'package:flutter_diet_tips/util/ConstantWidget.dart';
 import 'package:flutter_diet_tips/util/PrefData.dart';
 import 'package:flutter_diet_tips/util/SizeConfig.dart';
 import 'package:flutter_share/flutter_share.dart';
-import 'package:mailto/mailto.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'EditProfilePage.dart';
 import 'FavouritePage.dart';
@@ -404,115 +402,7 @@ class _TabSetting extends State<TabSetting> {
                 ),
                 onTap: () {},
               ),
-              GestureDetector(
-                child: Container(
-                  margin: EdgeInsets.all(marginMain),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(radius),
-                      color: cellColor),
-                  child: Padding(
-                    padding: EdgeInsets.only(top: padding, bottom: padding),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(paddingImage),
-                          child: Icon(
-                            Icons.share,
-                            color: primaryColor,
-                          ),
-                        ),
-                        SizedBox(
-                          width: SizeConfig.safeBlockHorizontal! * boxWidth,
-                        ),
-                        Expanded(
-                          child: getSmallNormalText(
-                              S.of(context).share, textColor),
-                          flex: 1,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                onTap: () {
-                  share();
-                },
-              ),
-              GestureDetector(
-                child: Container(
-                  margin: EdgeInsets.all(marginMain),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(radius),
-                      color: cellColor),
-                  child: Padding(
-                    padding: EdgeInsets.only(top: padding, bottom: padding),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(paddingImage),
-                          child: Icon(
-                            Icons.star_rate,
-                            color: primaryColor,
-                          ),
-                        ),
-                        SizedBox(
-                          width: SizeConfig.safeBlockHorizontal! * boxWidth,
-                        ),
-                        Expanded(
-                          child: getSmallNormalText(
-                              S.of(context).rateUs, textColor),
-                          flex: 1,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                onTap: () {},
-              ),
-              GestureDetector(
-                child: Container(
-                  margin: EdgeInsets.all(marginMain),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(radius),
-                      color: cellColor),
-                  child: Padding(
-                    padding: EdgeInsets.only(top: padding, bottom: padding),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(paddingImage),
-                          child: Icon(
-                            Icons.feedback,
-                            color: primaryColor,
-                          ),
-                        ),
-                        SizedBox(
-                          width: SizeConfig.safeBlockHorizontal! * boxWidth,
-                        ),
-                        Expanded(
-                          child: getSmallNormalText(
-                              S.of(context).feedback, textColor),
-                          flex: 1,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                onTap: () async {
-
-
-                  final mailtoLink = Mailto(
-                    to: ['to@example.com'],
-
-                    subject: 'Feedback',
-                    body: 'Health Tips',
-                  );
-                  await launchUrl(Uri.parse('$mailtoLink'));
-
-                },
-              ),
+              
               GestureDetector(
                 child: Container(
                   margin: EdgeInsets.all(marginMain),

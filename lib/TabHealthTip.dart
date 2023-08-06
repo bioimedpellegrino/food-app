@@ -21,7 +21,7 @@ class _TabHealthTip extends State<TabHealthTip> {
   List<HealthModel> healthList = [];
 
   int selectedPosition = 0;
-  List<String> list = ["Diet Tips", "Diet Tips", "Supplement"];
+  List<String> list = ["Suggerimenti", "Sostituzioni"];
 
   @override
   void initState() {
@@ -40,7 +40,7 @@ class _TabHealthTip extends State<TabHealthTip> {
       child: Scaffold(
         backgroundColor: backgroundColor,
         appBar: AppBar(
-          title: getPrimaryAppBarText(context, "Diet Plan"),
+          title: getPrimaryAppBarText(context, "Consigli"),
           backgroundColor: primaryColor,
           centerTitle: true,
           elevation: 0,

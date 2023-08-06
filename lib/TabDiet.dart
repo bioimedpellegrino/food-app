@@ -26,7 +26,7 @@ class _TabDiet extends State<TabDiet> {
   int categoryPosition = 0;
   DateTime dateTime = DateTime.now();
 
-  List<String> list = ["Breakfast", "Snack", "Lunch", "Dinner"];
+  List<String> list = ["Colazione", "Snack", "Pranzo", "Cena"];
   final controller = CarouselController();
 
   List<FoodModel> sliderList = DataFile.getFoodList();
@@ -140,7 +140,7 @@ class _TabDiet extends State<TabDiet> {
                               SizedBox(height: getPercentSize(
                                   appBarHeight, 3),),
                               getTextWidget(
-                                  "Your Meal Plan",
+                                  "Il tuo piano di oggi",
                                   Colors.white70,
                                   TextAlign.start,
                                   FontWeight.w300,
@@ -239,6 +239,7 @@ class _TabDiet extends State<TabDiet> {
 
                           monthTextStyle: TextStyle(color: textColor,fontWeight: FontWeight.w400,fontSize: getScreenPercentSize(context, 1.5)),
                           dateTextStyle: TextStyle(color: textColor,fontWeight: FontWeight.w800),
+                          locale: 'it_IT',
                           onDateChange: (date) {
                             setState(() {
                               dateTime = date;

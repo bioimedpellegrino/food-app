@@ -187,14 +187,14 @@ class _HomePage extends State<HomePage> with   TickerProviderStateMixin{
                           text: S.of(context).dishes),
 
                       FABBottomAppBarItem(
-                          iconData: Icons.category, text: "Categories"),
+                          iconData: Icons.category, text: "Ricette"),
                           // iconData: Icons.bar_chart, text: S.of(context).bmi),
 
 
 
                       FABBottomAppBarItem(
                           iconData: Icons.medical_services,
-                          text: "Diet Plan"),
+                          text: "Consigli"),
 
                       FABBottomAppBarItem(
                           iconData: Icons.settings, text: S.of(context).setting),
