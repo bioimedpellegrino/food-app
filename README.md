@@ -18,6 +18,9 @@ samples, guidance on mobile development, and a full API reference.
 
 # Iniziare
 
+- Installare le dipendenze:
+    flutter pub get
+
 - Per le traduzioni: 
     modificare 
     flutter pub run intl_utils:generate 
