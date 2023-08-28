@@ -19,10 +19,11 @@ class TabHealthTip extends StatefulWidget {
 }
 
 class _TabHealthTip extends State<TabHealthTip> {
+  List<HealthModel> globalHealthList = [];
   List<HealthModel> healthList = [];
 
   int selectedPosition = 0;
-  List<String> list = ["Suggerimenti", "Sostituzioni"];
+  List<String> list = ["Consigli", "Sostituzioni"];
 
   @override
   void initState() {
@@ -112,7 +113,7 @@ class _TabHealthTip extends State<TabHealthTip> {
                           onTap: () {
                             setState(() {
                               selectedPosition = index;
-                              healthList = healthList.reversed.toList();
+                              healthList = globalHealthList.where((item) => item.type == list[selectedPosition]).toList();
                             });
                           },
                         );
@@ -261,7 +262,8 @@ Future<void> fetchData() async {
     List<HealthModel> fetchedData = await ApiService().getAdvices();
 
     setState(() {
-      healthList = fetchedData;
+      globalHealthList = fetchedData;
+      healthList = globalHealthList.where((item) => item.type == 'Consigli').toList();
     });
   } catch (e) {
     // Gestisci eventuali errori qui.
