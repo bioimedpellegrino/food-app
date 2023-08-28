@@ -66,8 +66,8 @@ class _HealthDetailPage extends State<HealthDetailPage> {
                     height: height,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                      image: new ExactAssetImage(
-                        ConstantData.assetsPath +
+                      image: new NetworkImage(
+                        ConstantData.backendUrl +
                             widget.healthModel.image!,
                       ),
                       fit: BoxFit.cover,

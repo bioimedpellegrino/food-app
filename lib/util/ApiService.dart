@@ -1,20 +1,20 @@
 import 'dart:developer';
 import 'dart:convert';
 
+import 'package:flutter_diet_tips/model/HealthModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_diet_tips/model/UserModel.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_diet_tips/util/PrefData.dart';
+import 'package:flutter_diet_tips/util/ConstantData.dart';
 
 class ApiService {
   
 
   Future<bool> login(String username, String password) async {
-    await dotenv.load(fileName: ".env");
     try {
-      var loginUrl = Uri.parse(dotenv.get('BASE_URL') + 'rest-auth/login/');
-      print(username + " "  + password + " " + loginUrl.toString());
+      var loginUrl = Uri.parse(ConstantData.apiUrl + 'rest-auth/login/');
       final response = await http.post(
         loginUrl,
         headers: <String, String>{
@@ -51,9 +51,8 @@ class ApiService {
   }
 
   Future<List<UserModel>?> getUsers() async {
-    await dotenv.load(fileName: ".env");
     try {
-      var url = Uri.parse(dotenv.get('BASE_URL') + 'test/');
+      var url = Uri.parse(ConstantData.apiUrl + 'test/');
       var response = await http.get(url);
       if (response.statusCode == 200) {
         List<UserModel> _model = userModelFromJson(response.body);
@@ -61,6 +60,24 @@ class ApiService {
       }
     } catch (e) {
       log(e.toString());
+    }
+  }
+
+  Future<List<HealthModel>> getAdvices() async {
+    List<HealthModel> _model = [];
+    try {
+      var url = Uri.parse(ConstantData.apiUrl + 'core/advices/');
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        _model = adviceModelFromJson(response.body);
+        return _model;
+      }
+      else{
+        return _model;
+      }
+    } catch (e) {
+      log(e.toString());
+      return _model;
     }
   }
 }

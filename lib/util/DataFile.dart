@@ -388,7 +388,6 @@ class DataFile {
     HealthModel healthModel = new HealthModel();
     healthModel.title = "Don't train everyday";
     healthModel.image = "healthy_1.jpg";
-    healthModel.time = "2 Months ago";
     healthModel.desc =
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
     list.add(healthModel);
@@ -396,7 +395,6 @@ class DataFile {
     healthModel = new HealthModel();
     healthModel.title = "Stick to free weights";
     healthModel.image = "healthy_2.jpg";
-    healthModel.time = "5 Months ago";
     healthModel.desc =
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
     list.add(healthModel);
@@ -404,7 +402,6 @@ class DataFile {
     healthModel = new HealthModel();
     healthModel.title = "Do Compound movements";
     healthModel.image = "healthy_3.jpg";
-    healthModel.time = "2 Months ago";
     healthModel.desc =
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
     list.add(healthModel);
@@ -412,7 +409,6 @@ class DataFile {
     healthModel = new HealthModel();
     healthModel.title = "Can we eat paneer";
     healthModel.image = "healthy_4.jpg";
-    healthModel.time = "5 Months ago";
     healthModel.desc =
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
     list.add(healthModel);
@@ -420,7 +416,6 @@ class DataFile {
     healthModel = new HealthModel();
     healthModel.title = "Is broccoli the  best for fitness?";
     healthModel.image = "healthy_5.jpg";
-    healthModel.time = "3 Months ago";
     healthModel.desc =
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
     list.add(healthModel);
@@ -428,7 +423,6 @@ class DataFile {
     healthModel = new HealthModel();
     healthModel.title = "Is broccoli the  best for fitness?";
     healthModel.image = "healthy_6.jpg";
-    healthModel.time = "5 Months ago";
     healthModel.desc =
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
     list.add(healthModel);

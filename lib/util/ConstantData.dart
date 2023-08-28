@@ -28,6 +28,8 @@ class ConstantData {
   // static String fontFamily = "SFProText";
   static String boldFontFamily = "MerriweatherSans";
   static String assetsPath = "assets/images/";
+  static String backendUrl = "http://3.132.23.117";
+  static String apiUrl = "http://3.132.23.117/api/v1/";
   static final formatter = new NumberFormat("#.##");
 
   static const double avatarRadius = 40;

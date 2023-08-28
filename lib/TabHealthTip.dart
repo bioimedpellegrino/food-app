@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_diet_tips/util/ConstantData.dart';
 import 'package:flutter_diet_tips/util/ConstantWidget.dart';
 import 'package:flutter_diet_tips/util/DataFile.dart';
+import 'package:flutter_diet_tips/util/ApiService.dart';
 
 import 'HealthDetailPage.dart';
 import 'model/HealthModel.dart';
@@ -28,7 +29,7 @@ class _TabHealthTip extends State<TabHealthTip> {
     super.initState();
 
     setState(() {
-      healthList = DataFile.getHealthList();
+      fetchData();
     });
   }
 
@@ -153,8 +154,8 @@ class _TabHealthTip extends State<TabHealthTip> {
                                         borderRadius:
                                             BorderRadius.circular(radius),
                                         image: DecorationImage(
-                                          image: new ExactAssetImage(
-                                            ConstantData.assetsPath +
+                                          image: new NetworkImage(
+                                            ConstantData.backendUrl +
                                                 healthList[index].image!,
                                           ),
                                           fit: BoxFit.cover,
@@ -224,20 +225,6 @@ class _TabHealthTip extends State<TabHealthTip> {
                                             getScreenPercentSize(context, 1.8)),
                                         SizedBox(
                                           height: 8,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                              child: getCustomTextWidget(
-                                                  healthList[index].time!,
-                                                  primaryColor,
-                                                  1,
-                                                  TextAlign.end,
-                                                  FontWeight.w500,
-                                                  getScreenPercentSize(
-                                                      context, 1.5)),
-                                            ),
-                                          ],
                                         )
                                       ],
                                     ),
@@ -267,4 +254,18 @@ onBackPress();
   void onBackPress() {
     widget.valueChanged(0);
   }
+
+Future<void> fetchData() async {
+  try {
+    // Chiamata al tuo metodo asincrono per ottenere i dati dal backend.
+    List<HealthModel> fetchedData = await ApiService().getAdvices();
+
+    setState(() {
+      healthList = fetchedData;
+    });
+  } catch (e) {
+    // Gestisci eventuali errori qui.
+    print('Errore durante il recupero dei dati: $e');
+  }
+}
 }
