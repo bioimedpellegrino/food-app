@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-List<HealthModel> adviceModelFromJson(String str) =>
-    List<HealthModel>.from(json.decode(str).map((x) => HealthModel.fromJson(x)));
-class HealthModel{
+List<AdviceModel> adviceModelFromJson(String str) =>
+    List<AdviceModel>.from(json.decode(str).map((x) => AdviceModel.fromJson(x)));
+class AdviceModel{
   
-  HealthModel({
+  AdviceModel({
     this.title,
     this.desc,
     this.image,
@@ -15,7 +15,7 @@ class HealthModel{
   String? image,title,desc,time, type;
   bool? isFav=false;
 
-  factory HealthModel.fromJson(Map<String, dynamic> json) => HealthModel(
+  factory AdviceModel.fromJson(Map<String, dynamic> json) => AdviceModel(
         title: json["title"],
         desc: json["description"],
         image: json["image"],

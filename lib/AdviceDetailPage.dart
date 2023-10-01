@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_diet_tips/util/ConstantData.dart';
 import 'package:flutter_diet_tips/util/ConstantWidget.dart';
-import 'model/HealthModel.dart';
+import 'model/AdviceModel.dart';
 
-class HealthDetailPage extends StatefulWidget {
-  final HealthModel healthModel;
+class AdviceDetailPage extends StatefulWidget {
+  final AdviceModel adviceModel;
 
-  HealthDetailPage(this.healthModel);
+  AdviceDetailPage(this.adviceModel);
 
   @override
   _HealthDetailPage createState() {
@@ -14,7 +14,7 @@ class HealthDetailPage extends StatefulWidget {
   }
 }
 
-class _HealthDetailPage extends State<HealthDetailPage> {
+class _HealthDetailPage extends State<AdviceDetailPage> {
 
   int selectedPosition = 0;
   List<String> list = ["Workout Tips", "Diet Tips", "Supplement"];
@@ -41,7 +41,7 @@ class _HealthDetailPage extends State<HealthDetailPage> {
           backgroundColor: cellColor,
 
           appBar: AppBar(
-            title: getPrimaryAppBarText(context, widget.healthModel.title!),
+            title: getPrimaryAppBarText(context, widget.adviceModel.title!),
             backgroundColor: primaryColor,
             centerTitle: false,
 
@@ -68,7 +68,7 @@ class _HealthDetailPage extends State<HealthDetailPage> {
                         image: DecorationImage(
                       image: new NetworkImage(
                         ConstantData.backendUrl +
-                            widget.healthModel.image!,
+                            widget.adviceModel.image!,
                       ),
                       fit: BoxFit.cover,
                     )),
@@ -124,7 +124,7 @@ class _HealthDetailPage extends State<HealthDetailPage> {
                           children: [
                             Expanded(
                               child: getTextWidget(
-                                  widget.healthModel.title!,
+                                  widget.adviceModel.title!,
                                   textColor,
                                   TextAlign.start,
                                   FontWeight.w600,
@@ -138,7 +138,7 @@ class _HealthDetailPage extends State<HealthDetailPage> {
                             //   color: primaryColor,
                             // )
 
-                            getCustomTextWidget(widget.healthModel.time!,
+                            getCustomTextWidget(widget.adviceModel.time!,
                                 primaryColor, 1, TextAlign.end, FontWeight.w500, getScreenPercentSize(context,1.5))
 
                           ],
@@ -148,13 +148,13 @@ class _HealthDetailPage extends State<HealthDetailPage> {
                         SizedBox(height: 8  ,),
 
 
-                        // getTextWidgetWithSpacing(widget.healthModel.desc!+"\n"+widget.healthModel.desc!,
+                        // getTextWidgetWithSpacing(widget.adviceModel.desc!+"\n"+widget.adviceModel.desc!,
                         //     subTextColor,
                         //     TextAlign.start, FontWeight.w600, getScreenPercentSize(context,1.5)),
                         //
 
                         getTextWidgetWithSpacing(
-                            widget.healthModel.desc!,
+                            widget.adviceModel.desc!,
                             subTextColor,
                             TextAlign.start,
                             FontWeight.w500,
@@ -164,7 +164,7 @@ class _HealthDetailPage extends State<HealthDetailPage> {
                         // Row(
                         //   children: [
                         //     Expanded(
-                        //       child: getCustomTextWidget(widget.healthModel.time!,
+                        //       child: getCustomTextWidget(widget.adviceModel.time!,
                         //           primaryColor, 1, TextAlign.end, FontWeight.w500, getScreenPercentSize(context,1.5)),
                         //     ),
                         //

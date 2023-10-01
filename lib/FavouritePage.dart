@@ -3,9 +3,9 @@ import 'package:flutter_diet_tips/util/ConstantData.dart';
 import 'package:flutter_diet_tips/util/ConstantWidget.dart';
 import 'package:flutter_diet_tips/util/DataFile.dart';
 
-import 'HealthDetailPage.dart';
+import 'AdviceDetailPage.dart';
 import 'generated/l10n.dart';
-import 'model/HealthModel.dart';
+import 'model/AdviceModel.dart';
 
 class FavouritePage extends StatefulWidget{
 
@@ -21,7 +21,7 @@ class FavouritePage extends StatefulWidget{
 
 class _FavouritePage extends State<FavouritePage>{
 
-  List<HealthModel> healthList=[];
+  List<AdviceModel> adviceList=[];
 
 
 
@@ -32,7 +32,7 @@ class _FavouritePage extends State<FavouritePage>{
 
     setState(() {
 
-      healthList = DataFile.getHealthList();
+      adviceList = DataFile.getAdviceList();
 
 
     });
@@ -72,7 +72,7 @@ class _FavouritePage extends State<FavouritePage>{
           child:      Expanded(
             child: ListView.builder(
               shrinkWrap: true,
-              itemCount: healthList.length,
+              itemCount: adviceList.length,
               itemBuilder: (context, index) {
 
                 double imgHeight = getScreenPercentSize(context,30);
@@ -84,7 +84,7 @@ class _FavouritePage extends State<FavouritePage>{
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              HealthDetailPage(healthList[index]),
+                              AdviceDetailPage(adviceList[index]),
                         ));
                   },
                   child: Card(
@@ -109,7 +109,7 @@ class _FavouritePage extends State<FavouritePage>{
 
                                 image: DecorationImage(
                                   image: new ExactAssetImage(
-                                    ConstantData.assetsPath + healthList[index].image!,
+                                    ConstantData.assetsPath + adviceList[index].image!,
                                   ),
                                   fit: BoxFit.cover,
                                 )),
@@ -131,7 +131,7 @@ class _FavouritePage extends State<FavouritePage>{
                               children: [
                                 Row(
                                   children: [
-                                    Expanded(child: getCustomTextWidget(healthList[index].title!,
+                                    Expanded(child: getCustomTextWidget(adviceList[index].title!,
                                         textColor, 1, TextAlign.start, FontWeight.w700, getScreenPercentSize(context,1.8))),
 
                                     SizedBox(width: 5,)
@@ -140,7 +140,7 @@ class _FavouritePage extends State<FavouritePage>{
                                 ),
 
                                 SizedBox(height: 8  ,),
-                                getCustomTextWidget(healthList[index].desc!,
+                                getCustomTextWidget(adviceList[index].desc!,
                                     subTextColor, 3,
                                     TextAlign.start, FontWeight.w500, getScreenPercentSize(context,1.8)),
                                 SizedBox(height: 8  ,),
@@ -149,7 +149,7 @@ class _FavouritePage extends State<FavouritePage>{
                                 Row(
                                   children: [
                                     Expanded(
-                                      child: getCustomTextWidget(healthList[index].time!,
+                                      child: getCustomTextWidget(adviceList[index].time!,
                                           primaryColor, 1, TextAlign.end, FontWeight.w500, getScreenPercentSize(context,1.5)),
                                     ),
 

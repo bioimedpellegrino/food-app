@@ -3,8 +3,8 @@ import 'package:flutter_diet_tips/util/ConstantData.dart';
 import 'package:flutter_diet_tips/util/ConstantWidget.dart';
 import 'package:flutter_diet_tips/util/ApiService.dart';
 
-import 'HealthDetailPage.dart';
-import 'model/HealthModel.dart';
+import 'AdviceDetailPage.dart';
+import 'model/AdviceModel.dart';
 
 class TabHealthTip extends StatefulWidget {
   final ValueChanged<int> valueChanged;
@@ -18,8 +18,8 @@ class TabHealthTip extends StatefulWidget {
 }
 
 class _TabHealthTip extends State<TabHealthTip> {
-  List<HealthModel> globalHealthList = [];
-  List<HealthModel> healthList = [];
+  List<AdviceModel> globalAdviceList = [];
+  List<AdviceModel> adviceList = [];
 
   int selectedPosition = 0;
   List<String> list = ["Consigli", "Sostituzioni"];
@@ -112,7 +112,7 @@ class _TabHealthTip extends State<TabHealthTip> {
                           onTap: () {
                             setState(() {
                               selectedPosition = index;
-                              healthList = globalHealthList.where((item) => item.type == list[selectedPosition]).toList();
+                              adviceList = globalAdviceList.where((item) => item.type == list[selectedPosition]).toList();
                             });
                           },
                         );
@@ -125,7 +125,7 @@ class _TabHealthTip extends State<TabHealthTip> {
                   Expanded(
                     child: ListView.builder(
                       shrinkWrap: true,
-                      itemCount: healthList.length,
+                      itemCount: adviceList.length,
                       itemBuilder: (context, index) {
                         double imgHeight = getScreenPercentSize(context, 30);
                         double radius = getScreenPercentSize(context, 1.5);
@@ -135,7 +135,7 @@ class _TabHealthTip extends State<TabHealthTip> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      HealthDetailPage(healthList[index]),
+                                      AdviceDetailPage(adviceList[index]),
                                 ));
                           },
                           child: Card(
@@ -156,7 +156,7 @@ class _TabHealthTip extends State<TabHealthTip> {
                                         image: DecorationImage(
                                           image: new NetworkImage(
                                             ConstantData.backendUrl +
-                                                healthList[index].image!,
+                                                adviceList[index].image!,
                                           ),
                                           fit: BoxFit.cover,
                                         )),
@@ -182,7 +182,7 @@ class _TabHealthTip extends State<TabHealthTip> {
                                           children: [
                                             Expanded(
                                                 child: getCustomTextWidget(
-                                                    healthList[index].title!,
+                                                    adviceList[index].title!,
                                                     textColor,
                                                     1,
                                                     TextAlign.start,
@@ -194,18 +194,18 @@ class _TabHealthTip extends State<TabHealthTip> {
                                             ),
                                             GestureDetector(
                                               child: Icon(
-                                                healthList[index].isFav!?  Icons.favorite:  Icons.favorite_border,
+                                                adviceList[index].isFav!?  Icons.favorite:  Icons.favorite_border,
                                                 size: getScreenPercentSize(
                                                     context, 3),
                                                 color: primaryColor,
                                               ),
                                               onTap: () {
                                                setState(() {
-                                                 if (healthList[index].isFav!) {
-                                                   healthList[index].isFav =
+                                                 if (adviceList[index].isFav!) {
+                                                   adviceList[index].isFav =
                                                    false;
                                                  } else {
-                                                   healthList[index].isFav =
+                                                   adviceList[index].isFav =
                                                    true;
                                                  }
                                                });
@@ -217,7 +217,7 @@ class _TabHealthTip extends State<TabHealthTip> {
                                           height: 8,
                                         ),
                                         getCustomTextWidget(
-                                            healthList[index].desc!,
+                                            adviceList[index].desc!,
                                             subTextColor,
                                             3,
                                             TextAlign.start,
@@ -258,11 +258,11 @@ onBackPress();
 Future<void> fetchData() async {
   try {
     // Chiamata al tuo metodo asincrono per ottenere i dati dal backend.
-    List<HealthModel> fetchedData = await ApiService().getAdvices();
+    List<AdviceModel> fetchedData = await ApiService().getAdvices();
 
     setState(() {
-      globalHealthList = fetchedData;
-      healthList = globalHealthList.where((item) => item.type == 'Consigli').toList();
+      globalAdviceList = fetchedData;
+      adviceList = globalAdviceList.where((item) => item.type == 'Consigli').toList();
     });
   } catch (e) {
     // Gestisci eventuali errori qui.

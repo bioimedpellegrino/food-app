@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'dart:convert';
 
-import 'package:flutter_diet_tips/model/HealthModel.dart';
+import 'package:flutter_diet_tips/model/AdviceModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_diet_tips/model/UserModel.dart';
 import 'package:flutter_diet_tips/util/PrefData.dart';
@@ -62,8 +62,8 @@ class ApiService {
     return null;
   }
 
-  Future<List<HealthModel>> getAdvices() async {
-    List<HealthModel> _model = [];
+  Future<List<AdviceModel>> getAdvices() async {
+    List<AdviceModel> _model = [];
     try {
       var url = Uri.parse(ConstantData.apiUrl + 'core/advices/');
       var response = await http.get(url);
