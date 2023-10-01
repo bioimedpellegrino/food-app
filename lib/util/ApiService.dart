@@ -81,26 +81,26 @@ class ApiService {
     }
   }
 
-  Future<List<DailyDietModel>> getDailyDiet() async {
-    List<DailyDietModel> _model = [];
+  Future<Map<String, dynamic> > getDailyDiet() async {
+    Map<String, dynamic> _model = {};
     try {
-      var url = Uri.parse(ConstantData.apiUrl + 'core/advices/');
-      String token = PrefData.getAuthToken();
-      print("token --------" + token);
+      var url = Uri.parse(ConstantData.apiUrl + 'core/food/list');
+      var token = await PrefData.getAuthToken();
       var headers = {
-        'Authorization': 'Token' + token
+        'Authorization': 'Token ' + token
       };
 
       var response = await http.get(url, headers: headers);
       if (response.statusCode == 200) {
-        _model = dailyDietFromJson(response.body);
+        _model = json.decode(response.body);
         return _model;
       }
       else{
         return _model;
       }
-    } catch (e) {
-      log(e.toString());
+    } catch (e, stacktrace) {
+      log("getDailyDiet Error: $e");
+      log("StackTrace: $stacktrace");
       return _model;
     }
   }

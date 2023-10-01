@@ -255,18 +255,18 @@ onBackPress();
     widget.valueChanged(0);
   }
 
-Future<void> fetchData() async {
-  try {
-    // Chiamata al tuo metodo asincrono per ottenere i dati dal backend.
-    List<AdviceModel> fetchedData = await ApiService().getAdvices();
+  Future<void> fetchData() async {
+    try {
+      // Chiamata al tuo metodo asincrono per ottenere i dati dal backend.
+      List<AdviceModel> fetchedData = await ApiService().getAdvices();
 
-    setState(() {
-      globalAdviceList = fetchedData;
-      adviceList = globalAdviceList.where((item) => item.type == 'Consigli').toList();
-    });
-  } catch (e) {
-    // Gestisci eventuali errori qui.
-    print('Errore durante il recupero dei dati: $e');
+      setState(() {
+        globalAdviceList = fetchedData;
+        adviceList = globalAdviceList.where((item) => item.type == 'Consigli').toList();
+      });
+    } catch (e) {
+      // Gestisci eventuali errori qui.
+      print('Errore durante il recupero dei dati: $e');
+    }
   }
-}
 }

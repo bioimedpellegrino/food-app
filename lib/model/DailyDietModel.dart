@@ -1,8 +1,12 @@
-import 'dart:convert';
 import 'package:flutter_diet_tips/model/PortionModel.dart';
 
-List<DailyDietModel> dailyDietFromJson(String str) =>
-    List<DailyDietModel>.from(json.decode(str).map((x) => DailyDietModel.fromJson(x)));
+DailyDietModel dailyDietFromJson(Map<String, dynamic> json) {
+    DailyDietModel dailyDiet = DailyDietModel.fromJson(json);
+    return dailyDiet;
+}
+
+List<DailyDietModel> dailyDietListFromJson(List<dynamic> list) =>
+  List<DailyDietModel>.from(list.map((x) => DailyDietModel.fromJson(x)));
 
 class DailyDietModel{
   
