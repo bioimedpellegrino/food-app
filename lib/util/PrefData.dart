@@ -79,7 +79,7 @@ class PrefData {
     return prefs.getString(username) ?? '';
   }
 
-  getAuthToken() async {
+  static getAuthToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(authToken) ?? '';
   }

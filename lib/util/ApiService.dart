@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:convert';
 
 import 'package:flutter_diet_tips/model/AdviceModel.dart';
+import 'package:flutter_diet_tips/model/DailyDietModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_diet_tips/model/UserModel.dart';
 import 'package:flutter_diet_tips/util/PrefData.dart';
@@ -69,6 +70,30 @@ class ApiService {
       var response = await http.get(url);
       if (response.statusCode == 200) {
         _model = adviceModelFromJson(response.body);
+        return _model;
+      }
+      else{
+        return _model;
+      }
+    } catch (e) {
+      log(e.toString());
+      return _model;
+    }
+  }
+
+  Future<List<DailyDietModel>> getDailyDiet() async {
+    List<DailyDietModel> _model = [];
+    try {
+      var url = Uri.parse(ConstantData.apiUrl + 'core/advices/');
+      String token = PrefData.getAuthToken();
+      print("token --------" + token);
+      var headers = {
+        'Authorization': 'Token' + token
+      };
+
+      var response = await http.get(url, headers: headers);
+      if (response.statusCode == 200) {
+        _model = dailyDietFromJson(response.body);
         return _model;
       }
       else{
