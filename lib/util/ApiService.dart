@@ -4,8 +4,6 @@ import 'dart:convert';
 import 'package:flutter_diet_tips/model/HealthModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_diet_tips/model/UserModel.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_diet_tips/util/PrefData.dart';
 import 'package:flutter_diet_tips/util/ConstantData.dart';
 
@@ -61,6 +59,7 @@ class ApiService {
     } catch (e) {
       log(e.toString());
     }
+    return null;
   }
 
   Future<List<HealthModel>> getAdvices() async {

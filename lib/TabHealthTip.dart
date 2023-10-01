@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_diet_tips/util/ConstantData.dart';
 import 'package:flutter_diet_tips/util/ConstantWidget.dart';
-import 'package:flutter_diet_tips/util/DataFile.dart';
 import 'package:flutter_diet_tips/util/ApiService.dart';
 
 import 'HealthDetailPage.dart';
