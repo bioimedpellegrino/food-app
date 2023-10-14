@@ -28,4 +28,8 @@ class PortionModel{
         "unity": unity,
         "quantity": quantity
       };
+
+  String toDietString() {
+    return "$quantity $unity - $name";
+  }
 }

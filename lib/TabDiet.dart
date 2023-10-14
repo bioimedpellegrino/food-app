@@ -2,16 +2,20 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:date_picker_timetable/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_diet_tips/model/CategoryModel.dart';
+import 'package:flutter_diet_tips/model/DailyDietModel.dart';
 import 'package:flutter_diet_tips/util/ConstantData.dart';
 import 'package:flutter_diet_tips/util/ConstantWidget.dart';
 import 'package:flutter_diet_tips/util/DataFile.dart';
 import 'package:flutter_diet_tips/util/SizeConfig.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'package:flutter_diet_tips/util/PrefData.dart';
+import 'package:flutter_diet_tips/util/ApiService.dart';
 
 import 'YourDietDetailPage.dart';
 import 'model/FoodModel.dart';
 import 'package:intl/intl.dart';
+
+import 'model/PortionModel.dart';
 
 class TabDiet extends StatefulWidget {
   final ValueChanged<int> valueChanged;
@@ -29,6 +33,8 @@ class _TabDiet extends State<TabDiet> {
   DateTime dateTime = DateTime.now();
   final datePickerController = DatePickerController();
 
+  List<DailyDietModel>  dailyDiets = [];
+
   List<String> list = ["Colazione", "Snack", "Pranzo", "Cena"];
   final controller = CarouselController();
 
@@ -41,12 +47,11 @@ class _TabDiet extends State<TabDiet> {
   @override
   void initState() {
     super.initState();
-    // _controller = AutoScrollController(
-    //     viewportBoundaryGetter: () =>
-    //         Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
-    //     axis: Axis.horizontal);
-
-    getUserData();
+    
+    setState(() {
+      getUserData();
+      fetchData();
+    });
   }
 
   getUserData() async {
@@ -54,6 +59,12 @@ class _TabDiet extends State<TabDiet> {
     lastName = await PrefData().getLastName();
 
   }
+
+  // TODO: il programma viene recuperato correttamente
+  // adesso quello che tocca fare e mostrare i pasti sul carousel
+  // --> al change date, ho una lista di [DailyDietModel]
+  // --> potenziare quella per finire il lavoro
+
 
   List<String> ingredientsList = [
     "1 red apple",
@@ -263,6 +274,7 @@ class _TabDiet extends State<TabDiet> {
                           onDateChange: (date) {
                             setState(() {
                               dateTime = date;
+                              fetchData();
                             });
                           },
                         ),
@@ -333,7 +345,7 @@ class _TabDiet extends State<TabDiet> {
                         child: ListView.builder(
                           // controller: _controller,
 
-                          itemCount: sliderList.length,
+                          itemCount: dailyDiets.length,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
                             double imgHeight = getPercentSize(listHeight, 60);
@@ -368,28 +380,27 @@ class _TabDiet extends State<TabDiet> {
                                           child: Stack(
                                             children: [
                                               Image.asset(
-                                                ConstantData.assetsPath +
-                                                    sliderList[index].image!,
+                                                getMealImage(dailyDiets[index].category!),
                                                 height: imgHeight,
                                                 width: double.infinity,
-                                                fit: BoxFit.fill,
+                                                fit: BoxFit.cover
                                               ),
 
-                                              Container(
-                                                height: imgHeight,
-                                                  width: double.infinity,
-                                                  decoration: BoxDecoration(
-                                                      gradient: LinearGradient(
-                                                        colors: [
-                                                          Colors.black45,
-                                                          Colors.black54,
-                                                        ],
-                                                        begin: Alignment.topCenter,
-                                                        end: Alignment.bottomCenter,
-                                                )
-                                                  ),
-                                              )
-                                              ,
+                                              // Container(
+                                              //   height: imgHeight,
+                                              //     width: double.infinity,
+                                              //     decoration: BoxDecoration(
+                                              //         gradient: LinearGradient(
+                                              //           colors: [
+                                              //             Colors.black45,
+                                              //             Colors.black54,
+                                              //           ],
+                                              //           begin: Alignment.topCenter,
+                                              //           end: Alignment.bottomCenter,
+                                              //   )
+                                              //     ),
+                                              // )
+                                              // ,
                                               Positioned.fill(
                                                 child: Align(
                                                   alignment: Alignment.bottomLeft,
@@ -400,7 +411,7 @@ class _TabDiet extends State<TabDiet> {
                                                         vertical: getPercentSize(
                                                             remainHeight, 6)),
                                                     child: getTextWidget(
-                                                        sliderList[index].title!,
+                                                        dailyDiets[index].name!,
                                                         Colors.white,
                                                         TextAlign.start,
                                                         FontWeight.w800,
@@ -423,8 +434,7 @@ class _TabDiet extends State<TabDiet> {
                                                   padding: EdgeInsets.symmetric(
                                                       horizontal: getPercentSize(
                                                           remainHeight, 5)),
-                                                  child: getList(
-                                                      (index % 2==0)?ingredientsList:ingredientsList1, remainHeight)),
+                                                  child: getPortionsList(dailyDiets[index].portions!, remainHeight)),
                                               // getCustomText(
                                               //     sliderList[index].desc!,
                                               //     subTextColor,2,
@@ -451,20 +461,26 @@ class _TabDiet extends State<TabDiet> {
                                                           remainHeight, 3)),
                                                   child: Row(
                                                     children: [
+                                                      getCell(remainHeight, Colors.black,
+                                                          "Kcal", dailyDiets[index].total_kcal.toString()),
+                                                      Expanded(
+                                                        child: SizedBox(),
+                                                        flex: 1,
+                                                      ),
                                                       getCell(remainHeight, primaryColor,
-                                                          "Protein", "530"),
+                                                          "Proteine", dailyDiets[index].total_proteins.toString()),
                                                       Expanded(
                                                         child: SizedBox(),
                                                         flex: 1,
                                                       ),
                                                       getCell(remainHeight, Colors.red,
-                                                          "Fat", "120"),
+                                                          "Grassi", dailyDiets[index].total_carbohydrates.toString()),
                                                       Expanded(
                                                         child: SizedBox(),
                                                         flex: 1,
                                                       ),
                                                       getCell(remainHeight, Colors.orange,
-                                                          "Carbs", "250"),
+                                                          "Carbo", dailyDiets[index].total_carbohydrates.toString()),
                                                       Expanded(
                                                         child: SizedBox(),
                                                         flex: 1,
@@ -525,6 +541,10 @@ class _TabDiet extends State<TabDiet> {
 
   }
 
+  getSelectedDateAsString(){
+    return DateFormat('yyyy/MM/dd').format(dateTime);
+  }
+
   getWeekString(){
     Intl.defaultLocale = 'it';
     DateTime friday = dateTime.add(Duration(days: 5));
@@ -535,7 +555,27 @@ class _TabDiet extends State<TabDiet> {
     return '$sundayString - $fridayString';
   }
 
-  getList(List<String> list, double height) {
+  getMealImage(String category){
+
+    switch(category){
+      case "breakfast":
+        return ConstantData.assetsPath + "main_breakfast.jpg";
+      case "launch":
+        return ConstantData.assetsPath + "main_launch.jpg";
+      case "dinner":
+        return ConstantData.assetsPath + "main_dinner.jpg";
+      case "snack_morning":
+        return ConstantData.assetsPath + "img_1.jpg";
+      case "snack_afternoon":
+        return ConstantData.assetsPath + "img_1.jpg";
+      case "before_sleep":
+        return ConstantData.assetsPath + "img_2.jpg";
+      default:
+        return ConstantData.assetsPath + "images_3.jpg";
+    }
+  }
+
+  getPortionsList(List<PortionModel> list, double height) {
     double margin = getPercentSize(height, 2);
     double size = getPercentSize(height, 3);
 
@@ -557,42 +597,14 @@ class _TabDiet extends State<TabDiet> {
                     margin: EdgeInsets.only(right: margin),
                     decoration:
                         BoxDecoration(shape: BoxShape.circle, color: primaryColor),
-                    // child: Center(
-                    //   child: getRobotoTextWidget((index+1).toString(),
-                    //       Colors.white, TextAlign.center,FontWeight.w600, getPercentSize(size,50)),
-                    //
-                    // ),
                   ),
                   Expanded(
                       child: getRobotoTextWidget(
-                          list[index],
+                          list[index].toDietString(),
                           textColor,
                           TextAlign.start,
                           FontWeight.w600,
-                          getPercentSize(height, 8.5))
-                          // getPercentSize(height, 7.5))
-                      // child: new RichText(
-                      //   text: new TextSpan(
-                      //     children: <TextSpan>[
-                      //       // new TextSpan(
-                      //       //     text: '-  ',
-                      //       //     style: new TextStyle(
-                      //       //         fontWeight: FontWeight.w400,
-                      //       //         color: Colors.red,
-                      //       //         fontFamily: "Montserrat",
-                      //       //         fontSize:
-                      //       //         getScreenPercentSize(context, 2))),
-                      //       new TextSpan(
-                      //           text: list[index],
-                      //           style: new TextStyle(
-                      //               fontWeight: FontWeight.w500,
-                      //               fontFamily: "Montserrat",
-                      //               color: textColor,
-                      //               fontSize: getScreenPercentSize(
-                      //                   context, 1.6))),
-                      //     ],
-                      //   ),
-                      // ),
+                          getPercentSize(height, 10.5))
                       ),
                 ],
               ),
@@ -606,31 +618,25 @@ class _TabDiet extends State<TabDiet> {
             alignment: Alignment.centerRight,
 
 
-            child: Image.asset(ConstantData.assetsPath+"right-arrow.png",height: getScreenPercentSize(context, 2),color: textColor,),
-            // child: Container(
-            //   height: circle,
-            //   width: circle,
-            //   // decoration: BoxDecoration(
-            //   //   shape: BoxShape.circle,
-            //   //   color: primaryColor,
-            //   // ),
-            //   // child: Center(
-            //     // child: Icon(Icons.more_vert,color: primaryColor
-            //     //   ,size: getPercentSize(circle, 90),),
-            //     // child: Icon(Icons.navigate_next,color: Colors.white,size: getPercentSize(circle, 70),),
-            //   // ),
-            // ),
+            //child: Image.asset(ConstantData.assetsPath+"right-arrow.png",height: getScreenPercentSize(context, 2),color: textColor,),
+            child: Container(
+              height: 30,
+              width: 30,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: primaryColor,
+              ),
+              child: Center(
+                //child: Icon(Icons.more_vert,color: primaryColor
+                  //,size: getPercentSize(100, 90),),
+                child: Icon(Icons.navigate_next,color: Colors.white,size: getPercentSize(40, 70),),
+              ),
+            ),
           ),
         )
-
-
-
-
       ],
     );
     // )
-
-
   }
 
   getCell(double height, Color color, String s, String s1) {
@@ -667,5 +673,18 @@ class _TabDiet extends State<TabDiet> {
         // )
       ],
     );
+  }
+
+  Future<void> fetchData() async {
+    try {
+      String date = getSelectedDateAsString();
+      List<DailyDietModel>  fetchedData = await ApiService().getDailyDietList(date);
+
+      setState(() {
+        dailyDiets = fetchedData;
+      });
+    } catch (e) {
+      print('Errore durante il recupero dei dati: $e');
+    }
   }
 }

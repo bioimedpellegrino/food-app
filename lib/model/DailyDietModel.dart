@@ -63,4 +63,8 @@ class DailyDietModel{
       "portions": portionsJson,
     };
   }
+
+  void printInstance() {
+    print("Name: " + name! + " Category: " + category! + " Total KCAL:" + total_kcal!.toString());
+  }
 }

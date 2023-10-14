@@ -253,7 +253,7 @@ class DataFile {
     List<FoodModel> list = [];
 
     FoodModel model = new FoodModel();
-    model.title = "BreakFast";
+    model.title = "Colazione";
     model.image = "food_1.jpg";
     list.add(model);
 
@@ -263,19 +263,14 @@ class DataFile {
     list.add(model);
 
     model = new FoodModel();
-    model.title = "Lunch";
+    model.title = "Pranzo";
     model.image = "food_3.jpg";
     list.add(model);
 
     model = new FoodModel();
-    model.title = "Dinner";
+    model.title = "Cena";
     model.image = "food_4.jpg";
     list.add(model);
-
-
-
-
-
 
     return list;
   }
