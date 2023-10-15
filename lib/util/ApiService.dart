@@ -128,4 +128,28 @@ class ApiService {
       return _model;
     }
   }
+
+  Future<Map<String, dynamic>> getMicronutrients(int id) async {
+    Map<String, dynamic> apiResponse = {};
+    try {
+      var url = Uri.parse(ConstantData.apiUrl + "core/food/diet/meal_micronutrients/$id/");
+      var token = await PrefData.getAuthToken();
+      var headers = {
+        'Authorization': 'Token ' + token
+      };
+
+      var response = await http.get(url, headers: headers);
+      if (response.statusCode == 200) {
+        apiResponse = json.decode(response.body);
+        return apiResponse;
+      }
+      else{
+        return apiResponse;
+      }
+    } catch (e, stacktrace) {
+      log("getDailyDiet Error: $e");
+      log("StackTrace: $stacktrace");
+      return apiResponse;
+    }
+  }
 }

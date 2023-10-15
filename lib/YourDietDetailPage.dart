@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_diet_tips/model/PortionModel.dart';
+import 'package:flutter_diet_tips/util/ApiService.dart';
+import 'package:flutter_diet_tips/util/Utils.dart';
 import 'package:flutter_diet_tips/util/ConstantData.dart';
 import 'package:flutter_diet_tips/util/ConstantWidget.dart';
 import 'package:image/image.dart' as img;
 import 'package:palette_generator/palette_generator.dart';
-
-import 'model/FoodModel.dart';
+import 'package:flutter_diet_tips/model/DailyDietModel.dart';
+import 'generated/l10n.dart';
 
 class YourDietDetailPage extends StatefulWidget {
-  final FoodModel foodModel;
+  final DailyDietModel dailyDietModel;
 
-  YourDietDetailPage(this.foodModel);
+  YourDietDetailPage(this.dailyDietModel);
 
   @override
   _YourDietDetailPage createState() {
@@ -18,28 +21,41 @@ class YourDietDetailPage extends StatefulWidget {
 }
 
 class _YourDietDetailPage extends State<YourDietDetailPage> {
-  FoodModel foodModel = new FoodModel();
+  DailyDietModel dailyDietModel = DailyDietModel.empty();
+  Map<String, dynamic> micronutrients = {};
 
   void onBackClick() {
     Navigator.of(context).pop();
   }
-
-  List<String> ingredientsList = [
-    "1 red apple",
-    "1 beet",
-    "1 stick celery",
-    "green tea(optional)",
-    "1 raspberries",
-    "1 tsp ginger(optional)"
-  ];
 
   @override
   void initState() {
     super.initState();
 
     setState(() {
-      foodModel = widget.foodModel;
+      dailyDietModel = widget.dailyDietModel;
+      getMicro(dailyDietModel.id);
     });
+  }
+
+  getMealImage(String category){
+
+    switch(category){
+      case "breakfast":
+        return ConstantData.assetsPath + "main_breakfast.jpg";
+      case "launch":
+        return ConstantData.assetsPath + "main_launch.jpg";
+      case "dinner":
+        return ConstantData.assetsPath + "main_dinner.jpg";
+      case "snack_morning":
+        return ConstantData.assetsPath + "img_1.jpg";
+      case "snack_afternoon":
+        return ConstantData.assetsPath + "img_1.jpg";
+      case "before_sleep":
+        return ConstantData.assetsPath + "img_2.jpg";
+      default:
+        return ConstantData.assetsPath + "images_3.jpg";
+    }
   }
 
   @override
@@ -53,7 +69,7 @@ class _YourDietDetailPage extends State<YourDietDetailPage> {
         child: Scaffold(
           backgroundColor: backgroundColor,
           appBar: AppBar(
-            title: getPrimaryAppBarText(context, foodModel.title!),
+            title: getPrimaryAppBarText(context, dailyDietModel.name),
             backgroundColor: primaryColor,
             centerTitle: false,
             elevation: 0,
@@ -82,7 +98,7 @@ class _YourDietDetailPage extends State<YourDietDetailPage> {
                                 image: DecorationImage(
                                   image: new ExactAssetImage(
                                     // ConstantData.assetsPath + "homemade_receipe.jpg",
-                                    ConstantData.assetsPath + foodModel.image!,
+                                    getMealImage(dailyDietModel.category!),
                                   ),
                                   fit: BoxFit.fitWidth,
                                 )),
@@ -109,8 +125,10 @@ class _YourDietDetailPage extends State<YourDietDetailPage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  getTitle(foodModel.title!),
-                                  getList(ingredientsList),
+                                  getTitle(dailyDietModel.name),
+                                  getPortionList(dailyDietModel.portions!),
+                                  getTitle(S.of(context).micronutrients),
+                                  getMicroList()
                                 ],
                               ),
                             ),
@@ -120,6 +138,7 @@ class _YourDietDetailPage extends State<YourDietDetailPage> {
                           ],
                         ),
                       ),
+                      
                       Container(
                         height: viewHeight,
                         margin: EdgeInsets.only(
@@ -140,25 +159,32 @@ class _YourDietDetailPage extends State<YourDietDetailPage> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 getCell(
-                                    viewHeight, primaryColor, "Protein", "530"),
-                                Container(
-                                  height: getPercentSize(viewHeight, 35),
-                                  color: textColor,
-                                  width: 1,
-                                ),
-                                getCell(viewHeight, Colors.red, "Fat", "120"),
+                                    viewHeight, Colors.white, "Kcal", dailyDietModel.total_carbohydrates.toString()),
                                 Container(
                                   height: getPercentSize(viewHeight, 35),
                                   color: textColor,
                                   width: 1,
                                 ),
                                 getCell(
-                                    viewHeight, Colors.orange, "Carbs", "250"),
+                                    viewHeight, primaryColor, "Proteine", dailyDietModel.total_proteins.toString()),
+                                Container(
+                                  height: getPercentSize(viewHeight, 35),
+                                  color: textColor,
+                                  width: 1,
+                                ),
+                                getCell(viewHeight, Colors.red, "Grassi", dailyDietModel.total_fats.toString()),
+                                Container(
+                                  height: getPercentSize(viewHeight, 35),
+                                  color: textColor,
+                                  width: 1,
+                                ),
+                                getCell(
+                                    viewHeight, Colors.orange, "Carbo", dailyDietModel.total_carbohydrates.toString()),
                               ],
                             ),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   )
                 ],
@@ -212,7 +238,57 @@ class _YourDietDetailPage extends State<YourDietDetailPage> {
     );
   }
 
-  getList(List<String> list) {
+  getMicro(int id) async {
+    try {
+      Map<String, dynamic>  fetchedData = await ApiService().getMicronutrients(id);
+      setState(() =>
+        micronutrients = fetchedData
+      );
+
+    } catch (e) {
+      print('Errore durante il recupero dei micronutrienti: $e');
+    }
+  }
+
+  getMicroList(){
+    Map<String, String> transl = Utils().getMicroTranslation();
+    double margin = getScreenPercentSize(context, 2);
+    double size = getScreenPercentSize(context, 1);
+    List<MapEntry<String, dynamic>> entries = micronutrients.entries.toList();
+
+    return DataTable(
+    columns: [
+      DataColumn(label: Text('Valore')),
+      DataColumn(label: Text('Quantità')),
+    ],
+    rows: entries
+        .map(
+          (entry) => DataRow(cells: [
+            DataCell(
+              getRobotoTextWidget(
+                transl[entry.key]!,
+                textColor,
+                TextAlign.start,
+                FontWeight.w600,
+                getScreenPercentSize(context, 2),
+              ),
+            ),
+            DataCell(
+              getRobotoTextWidget(
+                entry.value.toString(),
+                textColor,
+                TextAlign.start,
+                FontWeight.w600,
+                getScreenPercentSize(context, 2),
+              ),
+            ),
+          ]),
+        )
+        .toList(),
+  );
+  }
+
+  getPortionList(List<PortionModel> portionList) {
     double margin = getScreenPercentSize(context, 2);
     double size = getScreenPercentSize(context, 1);
     // double size = getScreenPercentSize(context, 2.8);
@@ -221,7 +297,7 @@ class _YourDietDetailPage extends State<YourDietDetailPage> {
       shrinkWrap: true,
       padding: EdgeInsets.only(top: (margin / 2)),
       // padding: EdgeInsets.symmetric(vertical: (margin / 2)),
-      itemCount: list.length,
+      itemCount: portionList.length,
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         return Padding(
@@ -237,7 +313,7 @@ class _YourDietDetailPage extends State<YourDietDetailPage> {
               ),
               Expanded(
                   child: getRobotoTextWidget(
-                      list[index],
+                      portionList[index].toDietString(),
                       textColor,
                       TextAlign.start,
                       FontWeight.w600,

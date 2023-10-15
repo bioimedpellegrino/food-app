@@ -719,6 +719,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Micronutrienti`
+  String get micronutrients {
+    return Intl.message(
+      'Micronutrienti',
+      name: 'micronutrients',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

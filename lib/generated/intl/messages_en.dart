@@ -62,6 +62,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Gestisci Preferenze Alimentari"),
         "manageHealthCalculation":
             MessageLookupByLibrary.simpleMessage("Gestisci Calcolo Salute"),
+        "micronutrients":
+            MessageLookupByLibrary.simpleMessage("Micronutrienti"),
         "next": MessageLookupByLibrary.simpleMessage("Avanti"),
         "nightMode": MessageLookupByLibrary.simpleMessage("Modalità Notturna"),
         "notification": MessageLookupByLibrary.simpleMessage("Notifiche"),

@@ -65,19 +65,6 @@ class _TabDiet extends State<TabDiet> {
   // --> al change date, ho una lista di [DailyDietModel]
   // --> potenziare quella per finire il lavoro
 
-
-  List<String> ingredientsList = [
-    "1 red apple",
-    "1 beet",
-    "1 stick celery",
-  ];
-
-  List<String> ingredientsList1 = [
-    "1 raspberries",
-    "1 tsp ginger(optional)",
-        "1 tbps vanilla extract",
-  ];
-
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -380,7 +367,7 @@ class _TabDiet extends State<TabDiet> {
                                           child: Stack(
                                             children: [
                                               Image.asset(
-                                                getMealImage(dailyDiets[index].category!),
+                                                getMealImage(dailyDiets[index].category),
                                                 height: imgHeight,
                                                 width: double.infinity,
                                                 fit: BoxFit.cover
@@ -411,8 +398,8 @@ class _TabDiet extends State<TabDiet> {
                                                         vertical: getPercentSize(
                                                             remainHeight, 6)),
                                                     child: getTextWidget(
-                                                        dailyDiets[index].name!,
-                                                        Colors.white,
+                                                        dailyDiets[index].name,
+                                                        Colors.black,
                                                         TextAlign.start,
                                                         FontWeight.w800,
                                                         getPercentSize(remainHeight, 15)),
@@ -461,7 +448,7 @@ class _TabDiet extends State<TabDiet> {
                                                           remainHeight, 3)),
                                                   child: Row(
                                                     children: [
-                                                      getCell(remainHeight, Colors.black,
+                                                      getCell(remainHeight, Colors.white,
                                                           "Kcal", dailyDiets[index].total_kcal.toString()),
                                                       Expanded(
                                                         child: SizedBox(),
@@ -501,12 +488,12 @@ class _TabDiet extends State<TabDiet> {
                                 ),
                               ),
                               onTap: () {
-                                // setState(() {
-                                //   categoryPosition = index;
-                                // });
-                                //
+                                setState(() {
+                                  categoryPosition = index;
+                                });
+                                
 
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => YourDietDetailPage(sliderList[index]),));
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => YourDietDetailPage(dailyDiets[index]),));
                               },
                             );
                           },

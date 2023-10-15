@@ -65,5 +65,6 @@
   "addWeight": "Aggiungi Peso",
   "weight": "PESO",
   "manageHealthCalculation": "Gestisci Calcolo Salute",
-  "manageDietPreference": "Gestisci Preferenze Alimentari"
+  "manageDietPreference": "Gestisci Preferenze Alimentari",
+  "micronutrients": "Micronutrienti"
 }

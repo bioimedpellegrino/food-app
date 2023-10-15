@@ -11,17 +11,29 @@ List<DailyDietModel> dailyDietListFromJson(List<dynamic> list) =>
 class DailyDietModel{
   
   DailyDietModel({
-    this.name,
-    this.category,
-    this.total_kcal,
-    this.total_carbohydrates,
-    this.total_proteins,
-    this.total_fats,
+    required this.id,
+    required this.name,
+    required this.category,
+    required this.total_kcal,
+    required this.total_carbohydrates,
+    required this.total_proteins,
+    required this.total_fats,
     this.portions
   });
 
-  String? name, category;
-  double? total_kcal, total_carbohydrates, total_proteins, total_fats;
+  DailyDietModel.empty()
+      : id = 0,
+        name = '',
+        category = '',
+        total_kcal = 0.0,
+        total_carbohydrates = 0.0,
+        total_proteins = 0.0,
+        total_fats = 0.0,
+        portions = null;
+
+  int id;
+  String name, category;
+  double total_kcal, total_carbohydrates, total_proteins, total_fats;
   List<PortionModel>? portions;
 
 
@@ -36,6 +48,7 @@ class DailyDietModel{
     }
 
     return DailyDietModel(
+      id: json["id"],
       name: json["name"],
       category: json["category"],
       total_kcal: json["total_kcal"]?.toDouble(),
@@ -54,6 +67,7 @@ class DailyDietModel{
     }
 
     return {
+      "id": id,
       "name": name,
       "category": category,
       "total_kcal": total_kcal,
