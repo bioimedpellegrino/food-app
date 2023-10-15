@@ -66,8 +66,12 @@ class ApiService {
   Future<List<AdviceModel>> getAdvices() async {
     List<AdviceModel> _model = [];
     try {
+      var token = await PrefData.getAuthToken();
+      var headers = {
+        'Authorization': 'Token ' + token
+      };
       var url = Uri.parse(ConstantData.apiUrl + 'core/advices/');
-      var response = await http.get(url);
+      var response = await http.get(url, headers: headers);
       if (response.statusCode == 200) {
         _model = adviceModelFromJson(response.body);
         return _model;
