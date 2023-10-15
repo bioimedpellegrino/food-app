@@ -576,7 +576,7 @@ class _TabDiet extends State<TabDiet> {
   }
 
   getPortionsList(List<PortionModel> list, double height) {
-    double margin = getPercentSize(height, 2);
+    double margin = list.length == 1 ? getPercentSize(height, 6) : getPercentSize(height, 2);
     double size = getPercentSize(height, 3);
 
     return Stack(
@@ -622,10 +622,6 @@ class _TabDiet extends State<TabDiet> {
             child: Container(
               height: 30,
               width: 30,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: primaryColor,
-              ),
               child: Center(
                 //child: Icon(Icons.more_vert,color: primaryColor
                   //,size: getPercentSize(100, 90),),
