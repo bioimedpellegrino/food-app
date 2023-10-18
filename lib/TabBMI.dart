@@ -1,8 +1,9 @@
 // import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:date_picker_timetable/date_picker_widget.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_diet_tips/util/ApiService.dart';
 import 'package:flutter_diet_tips/util/ConstantData.dart';
 import 'package:flutter_diet_tips/util/ConstantWidget.dart';
 import 'package:flutter_diet_tips/util/MyAssetsBar.dart';
@@ -82,27 +83,30 @@ class _TabBMI extends State<TabBMI> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
+                      Text("Se inserisci un peso per la stessa data, verrà presa in considerazione solo l'ultima misurazione. Assicurati di registrare solo la misurazione più recente per ogni data.",
+                      style: TextStyle(color: Colors.yellow, fontSize: 12),),
                       Container(
                         height: 100,
-                        child: DatePicker(
-                          DateTime.now(),
-                          initialSelectedDate: DateTime.now(),
-                          selectionColor: primaryColor,
-                          selectedTextColor: Colors.white,
-                          dayTextStyle: TextStyle(color: textColor),
-                          monthTextStyle: TextStyle(color: textColor),
-                          dateTextStyle: TextStyle(color: textColor),
-                          onDateChange: (date) {
-                            setState(() {
-                              dateTime = date;
-                            });
-                          },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            ElevatedButton(
+                              onPressed: () => _selectDate(context),
+                              child: const Text('Scegli data'),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: primaryColor
+                              ),
+                            ),
+                            const SizedBox(width: 20.0,),
+                            Text("${dateTime.toLocal()}".split(' ')[0])
+                          ],
                         ),
                       ),
                       SizedBox(
                         height: getScreenPercentSize(context, 3),
                       ),
-                      getCustomText("Weight", textColor, 1, TextAlign.start,
+                      getCustomText("Peso", textColor, 1, TextAlign.start,
                           FontWeight.w500, ConstantData.font22Px),
                       SizedBox(
                         height: 2,
@@ -112,9 +116,9 @@ class _TabBMI extends State<TabBMI> {
                         children: [
                           Expanded(
                             child: TextField(
-                              keyboardType: TextInputType.number,
+                              keyboardType: TextInputType.numberWithOptions(decimal: true),
                               inputFormatters: <TextInputFormatter>[
-                                FilteringTextInputFormatter.digitsOnly
+                                FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))
                               ],
                               textAlign: TextAlign.center,
                               cursorColor: primaryColor,
@@ -150,7 +154,7 @@ class _TabBMI extends State<TabBMI> {
                           new Spacer(),
                           new TextButton(
                               child: Text(
-                                'CANCEL',
+                                'ANNULLA',
                                 style: TextStyle(
                                     fontFamily: ConstantData.fontFamily,
                                     fontSize: 15,
@@ -165,7 +169,7 @@ class _TabBMI extends State<TabBMI> {
                               style: TextButton.styleFrom(
                                   backgroundColor: primaryColor),
                               child: Text(
-                                'CHECK',
+                                'INSERISCI',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontFamily: ConstantData.fontFamily,
@@ -174,15 +178,14 @@ class _TabBMI extends State<TabBMI> {
                               ),
                               onPressed: () {
                                 if (myControllerWeight.text.isNotEmpty) {
-                                  // weight = myControllerWeight.text;
+                                  logWeight(myControllerWeight.text);
 
                                   setState(() {
                                     // list = _createSampleData(
                                     //     new OrdinalSales(dateTime.day.toString(), weight1.toInt()));
                                   });
+                                  Navigator.pop(context);
                                 }
-
-                                Navigator.pop(context);
                               }),
                         ],
                       )
@@ -199,6 +202,48 @@ class _TabBMI extends State<TabBMI> {
       // })
     });
   }
+
+  void logWeight(String weight) async{
+    String logDate = dateTime.toLocal().toString().split(' ')[0];
+    Map<String, dynamic> response = await ApiService().postLogWeight(logDate, weight);
+    if( response["status_code"] == 200){
+      Fluttertoast.showToast(
+        msg: "Misurazione inserita con successo",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: primaryColor,
+        textColor: Colors.white,
+        fontSize: 16.0
+      );
+    } else {
+      Fluttertoast.showToast(
+        msg: "Errore: ${response["error_message"]}",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+    }
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: dateTime,
+        firstDate: DateTime(DateTime.now().year, 1, 1),
+        lastDate: DateTime.now(),
+        locale: const Locale("it", "IT")
+        );
+    if (picked != null && picked != dateTime) {
+      setState(() {
+        dateTime = picked;
+      });
+    }
+  }
+
 
   String spinValue = "Sedentary- little or no exercise";
   void showCalDialog(BuildContext contexts) async {
@@ -528,7 +573,7 @@ class _TabBMI extends State<TabBMI> {
             return AlertDialog(
               backgroundColor: cellColor,
               title: getMediumTextWithMaxLine(
-                  "Enter Height and Weight", textColor, 1),
+                  "Inserisci altezza e peso", textColor, 1),
               content: Container(
                 width: 300.0,
                 padding:
@@ -538,7 +583,7 @@ class _TabBMI extends State<TabBMI> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    getCustomText("Height", textColor, 1, TextAlign.start,
+                    getCustomText("Altezza", textColor, 1, TextAlign.start,
                         FontWeight.w500, ConstantData.font22Px),
                     SizedBox(
                       height: 2,
@@ -618,7 +663,7 @@ class _TabBMI extends State<TabBMI> {
                     SizedBox(
                       height: 15,
                     ),
-                    getCustomText("Weight", textColor, 1, TextAlign.start,
+                    getCustomText("Peso", textColor, 1, TextAlign.start,
                         FontWeight.w500, ConstantData.font22Px),
                     SizedBox(
                       height: 2,
@@ -661,7 +706,7 @@ class _TabBMI extends State<TabBMI> {
               actions: [
                 new TextButton(
                     child: Text(
-                      'CANCEL',
+                      'ANNULLA',
                       style: TextStyle(
                           fontFamily: ConstantData.fontFamily,
                           fontSize: 15,
@@ -675,7 +720,7 @@ class _TabBMI extends State<TabBMI> {
                     // color: lightPink,
                     style: TextButton.styleFrom(backgroundColor: primaryColor),
                     child: Text(
-                      'CHECK',
+                      'CALCOLA',
                       style: TextStyle(
                           color: Colors.white,
                           fontFamily: ConstantData.fontFamily,
@@ -839,12 +884,12 @@ class _TabBMI extends State<TabBMI> {
                                   alignment: Alignment.center,
                                   child: Text(
                                     (bmi < 18)
-                                        ? "Underweight"
+                                        ? "Sottopeso"
                                         : (bmi < 25)
-                                            ? "Normal Weight"
+                                            ? "Normo peso :)"
                                             : (bmi < 30)
-                                                ? "Overweight"
-                                                : "Obesity",
+                                                ? "Sovrappeso"
+                                                : "Obesità",
                                     style: TextStyle(
                                         color: getColorFromHex("FBC02D"),
                                         fontWeight: FontWeight.bold,
@@ -940,166 +985,7 @@ class _TabBMI extends State<TabBMI> {
                         child: Stack(
                           children: [
                             Center(
-                              child: getMediumNormalTextWithMaxLine("Check Now",
-                                  Colors.white, 1, TextAlign.center),
-                            ),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: Icon(
-                                Icons.arrow_forward_rounded,
-                                color: Colors.white,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.all(allMargin),
-                width: double.infinity,
-                height: SizeConfig.safeBlockVertical! * 30,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  color: Color(0xFF057B71),
-                  // color: "#F6A32A".toColor(),
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Stack(
-                        children: [
-                          Image.asset(
-                            ConstantData.assetsPath + "path.png",
-                            height: double.infinity,
-                            width: double.infinity,
-                            fit: BoxFit.fill,
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                child: getMediumBoldTextWithMaxLine(
-                                    "BMR", Colors.white, 1),
-                                padding: EdgeInsets.all(5),
-                              ),
-                              Align(
-                                alignment: Alignment.center,
-                                child: getCustomText(
-                                    "$bmi ${"kcal Per Day"}",
-                                    Colors.white,
-                                    1,
-                                    TextAlign.center,
-                                    FontWeight.bold,
-                                    22),
-                              ),
-                              SizedBox(
-                                height: 7,
-                              ),
-                              Align(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "",
-                                    style: TextStyle(
-                                        color: getColorFromHex("FBC02D"),
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 22,
-                                        fontStyle: FontStyle.italic),
-                                    textAlign: TextAlign.center,
-                                    maxLines: 1,
-                                  )
-                                  // , 1,
-                                  // TextAlign.center, , 22),
-                                  ),
-                              Expanded(
-                                child: Center(
-                                  child: Container(
-                                    child: MyAssetsBar(
-                                      width: width,
-                                      background: getColorFromHex("CFD8DC"),
-                                      //height: 50,
-                                      height: 5,
-                                      radius: 5,
-                                      pointer: bmi,
-                                      //radius: 10,
-                                      assetsLimit: 50,
-                                      order: OrderType.None,
-                                      // order: OrderType.Ascending,
-                                      assets: [
-                                        MyAsset(
-                                            size: 15,
-                                            color: getColorFromHex("D0E2E2"),
-                                            title: "0"),
-                                        MyAsset(
-                                            size: 3,
-                                            color: getColorFromHex("9ADF9C"),
-                                            title: "16"),
-                                        MyAsset(
-                                            size: 7,
-                                            color: getColorFromHex("1EDC3E"),
-                                            title: "18"),
-                                        MyAsset(
-                                            size: 5,
-                                            color: getColorFromHex("DCE683"),
-                                            title: "25"),
-                                        MyAsset(
-                                            size: 5,
-                                            color: getColorFromHex("FF9A00"),
-                                            title: "30"),
-                                        MyAsset(
-                                            size: 5,
-                                            color: getColorFromHex("E26F76"),
-                                            title: "35"),
-                                        MyAsset(
-                                            size: 10,
-                                            color: getColorFromHex("EF3737"),
-                                            title: "40"),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                flex: 1,
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Divider(
-                      height: 1,
-                      color: Colors.white,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(10)),
-                        color: Color(0xFF01635A),
-                      ),
-                      padding: EdgeInsets.all(7),
-                      child: InkWell(
-                        onTap: () {
-                          // if (isKg) {
-                          //   myController.text = Constants.formatter.format(height);
-                          //   myControllerWeight.text =
-                          //       Constants.formatter.format(weight);
-                          // } else {
-                          //   Constants.meterToInchAndFeet(
-                          //       height, myController, myControllerIn);
-                          //   myControllerWeight.text = Constants.formatter
-                          //       .format(Constants.kgToPound(weight));
-                          // }
-                          showCalDialog(context);
-                        },
-                        child: Stack(
-                          children: [
-                            Center(
-                              child: getMediumNormalTextWithMaxLine("Check Now",
+                              child: getMediumNormalTextWithMaxLine("Calcola BMI",
                                   Colors.white, 1, TextAlign.center),
                             ),
                             Align(

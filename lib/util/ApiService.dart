@@ -156,4 +156,35 @@ class ApiService {
       return apiResponse;
     }
   }
+
+
+  Future<Map<String, dynamic>> postLogWeight(String logDate, String weight) async {
+    Map<String, dynamic> apiResponse = {};
+    try {
+      var url = Uri.parse(ConstantData.apiUrl + "core/food/log_weight/");
+      var token = await PrefData.getAuthToken();
+      var headers = {
+        'Authorization': 'Token ' + token
+      };
+
+      var payload = {
+        "entry_date": logDate,
+        "weight": weight
+      };
+
+      var response = await http.post(url, headers: headers, body: payload);
+      if (response.statusCode == 200) {
+        apiResponse = json.decode(response.body);
+        return apiResponse;
+      }
+      else{
+        return apiResponse;
+      }
+    } catch (e, stacktrace) {
+      log("postLogWeight Error: $e");
+      log("StackTrace: $stacktrace");
+      return apiResponse;
+    }
+  }
+
 }
