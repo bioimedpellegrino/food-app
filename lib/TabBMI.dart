@@ -218,7 +218,7 @@ class _TabBMI extends State<TabBMI> {
       );
     } else {
       Fluttertoast.showToast(
-        msg: "Errore: ${response["error_message"]}",
+        msg: "Ops! Qualcosa è andato storto",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
