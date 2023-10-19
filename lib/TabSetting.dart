@@ -180,82 +180,82 @@ class _TabSetting extends State<TabSetting> {
                       ));
                 },
               ),
-              GestureDetector(
-                child: Container(
-                  margin: EdgeInsets.all(marginMain),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(radius),
-                      color: cellColor),
-                  child: Padding(
-                    padding: EdgeInsets.only(top: padding, bottom: padding),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(paddingImage),
-                          child: Icon(
-                            Icons.emoji_food_beverage,
-                            color: primaryColor,
-                          ),
-                        ),
-                        SizedBox(
-                          width: SizeConfig.safeBlockHorizontal! * boxWidth,
-                        ),
-                        Expanded(
-                          child: getSmallNormalText(
-                              S.of(context).manageDietPreference, textColor),
-                          flex: 1,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ManageDiet(),
-                      ));
-                },
-              ),
-              GestureDetector(
-                child: Container(
-                  margin: EdgeInsets.all(marginMain),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(radius),
-                      color: cellColor),
-                  child: Padding(
-                    padding: EdgeInsets.only(top: padding, bottom: padding),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(paddingImage),
-                          child: Icon(
-                            Icons.timer,
-                            color: primaryColor,
-                          ),
-                        ),
-                        SizedBox(
-                          width: SizeConfig.safeBlockHorizontal! * boxWidth,
-                        ),
-                        Expanded(
-                          child: getSmallNormalText(
-                              S.of(context).reminder, textColor),
-                          flex: 1,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ReminderPage(),
-                      ));
-                },
-              ),
+              // GestureDetector(
+              //   child: Container(
+              //     margin: EdgeInsets.all(marginMain),
+              //     width: double.infinity,
+              //     decoration: BoxDecoration(
+              //         borderRadius: BorderRadius.circular(radius),
+              //         color: cellColor),
+              //     child: Padding(
+              //       padding: EdgeInsets.only(top: padding, bottom: padding),
+              //       child: Row(
+              //         children: [
+              //           Padding(
+              //             padding: EdgeInsets.all(paddingImage),
+              //             child: Icon(
+              //               Icons.emoji_food_beverage,
+              //               color: primaryColor,
+              //             ),
+              //           ),
+              //           SizedBox(
+              //             width: SizeConfig.safeBlockHorizontal! * boxWidth,
+              //           ),
+              //           Expanded(
+              //             child: getSmallNormalText(
+              //                 S.of(context).manageDietPreference, textColor),
+              //             flex: 1,
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //   ),
+              //   onTap: () {
+              //     Navigator.push(
+              //         context,
+              //         MaterialPageRoute(
+              //           builder: (context) => ManageDiet(),
+              //         ));
+              //   },
+              // ),
+              // GestureDetector(
+              //   child: Container(
+              //     margin: EdgeInsets.all(marginMain),
+              //     width: double.infinity,
+              //     decoration: BoxDecoration(
+              //         borderRadius: BorderRadius.circular(radius),
+              //         color: cellColor),
+              //     child: Padding(
+              //       padding: EdgeInsets.only(top: padding, bottom: padding),
+              //       child: Row(
+              //         children: [
+              //           Padding(
+              //             padding: EdgeInsets.all(paddingImage),
+              //             child: Icon(
+              //               Icons.timer,
+              //               color: primaryColor,
+              //             ),
+              //           ),
+              //           SizedBox(
+              //             width: SizeConfig.safeBlockHorizontal! * boxWidth,
+              //           ),
+              //           Expanded(
+              //             child: getSmallNormalText(
+              //                 S.of(context).reminder, textColor),
+              //             flex: 1,
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //   ),
+              //   onTap: () {
+              //     Navigator.push(
+              //         context,
+              //         MaterialPageRoute(
+              //           builder: (context) => ReminderPage(),
+              //         ));
+              //   },
+              // ),
               GestureDetector(
                 child: Container(
                   margin: EdgeInsets.all(marginMain),
@@ -294,44 +294,44 @@ class _TabSetting extends State<TabSetting> {
                       ));
                 },
               ),
-              GestureDetector(
-                child: Container(
-                  margin: EdgeInsets.all(marginMain),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(radius),
-                      color: cellColor),
-                  child: Padding(
-                    padding: EdgeInsets.only(top: padding, bottom: padding),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(paddingImage),
-                          child: Icon(
-                            Icons.favorite,
-                            color: primaryColor,
-                          ),
-                        ),
-                        SizedBox(
-                          width: SizeConfig.safeBlockHorizontal! * boxWidth,
-                        ),
-                        Expanded(
-                          child: getSmallNormalText(
-                              S.of(context).favourite, textColor),
-                          flex: 1,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) {
-                      return FavouritePage();
-                    },
-                  ));
-                },
-              ),
+              // GestureDetector(
+              //   child: Container(
+              //     margin: EdgeInsets.all(marginMain),
+              //     width: double.infinity,
+              //     decoration: BoxDecoration(
+              //         borderRadius: BorderRadius.circular(radius),
+              //         color: cellColor),
+              //     child: Padding(
+              //       padding: EdgeInsets.only(top: padding, bottom: padding),
+              //       child: Row(
+              //         children: [
+              //           Padding(
+              //             padding: EdgeInsets.all(paddingImage),
+              //             child: Icon(
+              //               Icons.favorite,
+              //               color: primaryColor,
+              //             ),
+              //           ),
+              //           SizedBox(
+              //             width: SizeConfig.safeBlockHorizontal! * boxWidth,
+              //           ),
+              //           Expanded(
+              //             child: getSmallNormalText(
+              //                 S.of(context).favourite, textColor),
+              //             flex: 1,
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //   ),
+              //   onTap: () {
+              //     Navigator.of(context).push(MaterialPageRoute(
+              //       builder: (context) {
+              //         return FavouritePage();
+              //       },
+              //     ));
+              //   },
+              // ),
               GestureDetector(
                 child: Container(
                   margin: EdgeInsets.all(marginMain),

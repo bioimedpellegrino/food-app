@@ -20,12 +20,12 @@ class _EditProfilePage extends State<EditProfilePage> {
   TextEditingController lastNameController = new TextEditingController();
   TextEditingController mailController = new TextEditingController();
   TextEditingController genderController = new TextEditingController();
-  TextEditingController phController = new TextEditingController(text: "+91");
+  TextEditingController phController = new TextEditingController(text: "+39");
   TextEditingController heightController =
-      new TextEditingController(text: "152");
+      new TextEditingController(text: "");
   TextEditingController weightController =
-      new TextEditingController(text: "25");
-  TextEditingController ageController = new TextEditingController(text: "25");
+      new TextEditingController(text: "");
+  TextEditingController ageController = new TextEditingController(text: "");
   TextEditingController phoneController = new TextEditingController();
 
 
@@ -34,11 +34,11 @@ class _EditProfilePage extends State<EditProfilePage> {
     super.initState();
     ConstantData.setThemePosition();
 
-    firstNameController.text = "harry";
-    lastNameController.text = "harry";
-    mailController.text = "fd@gamil.com";
-    genderController.text = "Male";
-    phoneController.text = "326598659";
+    firstNameController.text = "";
+    lastNameController.text = "";
+    mailController.text = "";
+    genderController.text = "";
+    phoneController.text = "";
 
     setState(() {});
   }
@@ -126,70 +126,70 @@ class _EditProfilePage extends State<EditProfilePage> {
                 ListView(
                   primary: true,
                   children: [
-                    Container(
-                      color: backgroundColor,
-                      padding: EdgeInsets.only(top: (topMargin * 4)),
-                      child: Container(
-                          height: profileHeight + (profileHeight / 5),
-                          child: Align(
-                            alignment: Alignment.topCenter,
-                            child: Stack(
-                              children: <Widget>[
-                                Align(
-                                  alignment: Alignment.topCenter,
-                                  child: Container(
-                                    height: profileHeight,
-                                    width: profileHeight,
-                                    decoration: BoxDecoration(
-                                        color: primaryColor,
-                                        shape: BoxShape.circle,
-                                        border: Border.all(
-                                            color: primaryColor,
-                                            width: getScreenPercentSize(
-                                                context, 0.2))),
-                                    child: ClipOval(
-                                      child: Material(
-                                        color: primaryColor,
-                                        child: getProfileImage(),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: InkWell(
-                                    child: Container(
-                                      margin: EdgeInsets.only(
-                                          left:
-                                              getScreenPercentSize(context, 10),
-                                          bottom: getScreenPercentSize(
-                                              context, 2.7)),
-                                      height: editSize,
-                                      width: editSize,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: primaryColor,
-                                        ),
-                                        child: Center(
-                                          child: Icon(
-                                            Icons.photo_camera_back,
-                                            color: Colors.white,
-                                            size: getPercentSize(editSize, 48),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    onTap: () async {
-                                      _imgFromGallery();
-                                    },
-                                    // onTap: _imgFromGallery,
-                                  ),
-                                )
-                              ],
-                            ),
-                          )),
-                    ),
+                    // Container(
+                    //   color: backgroundColor,
+                    //   padding: EdgeInsets.only(top: (topMargin * 4)),
+                    //   child: Container(
+                    //       height: profileHeight + (profileHeight / 5),
+                    //       child: Align(
+                    //         alignment: Alignment.topCenter,
+                    //         child: Stack(
+                    //           children: <Widget>[
+                    //             Align(
+                    //               alignment: Alignment.topCenter,
+                    //               child: Container(
+                    //                 height: profileHeight,
+                    //                 width: profileHeight,
+                    //                 decoration: BoxDecoration(
+                    //                     color: primaryColor,
+                    //                     shape: BoxShape.circle,
+                    //                     border: Border.all(
+                    //                         color: primaryColor,
+                    //                         width: getScreenPercentSize(
+                    //                             context, 0.2))),
+                    //                 child: ClipOval(
+                    //                   child: Material(
+                    //                     color: primaryColor,
+                    //                     child: getProfileImage(),
+                    //                   ),
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //             Align(
+                    //               alignment: Alignment.bottomCenter,
+                    //               child: InkWell(
+                    //                 child: Container(
+                    //                   margin: EdgeInsets.only(
+                    //                       left:
+                    //                           getScreenPercentSize(context, 10),
+                    //                       bottom: getScreenPercentSize(
+                    //                           context, 2.7)),
+                    //                   height: editSize,
+                    //                   width: editSize,
+                    //                   child: Container(
+                    //                     decoration: BoxDecoration(
+                    //                       shape: BoxShape.circle,
+                    //                       color: primaryColor,
+                    //                     ),
+                    //                     child: Center(
+                    //                       child: Icon(
+                    //                         Icons.photo_camera_back,
+                    //                         color: Colors.white,
+                    //                         size: getPercentSize(editSize, 48),
+                    //                       ),
+                    //                     ),
+                    //                   ),
+                    //                 ),
+                    //                 onTap: () async {
+                    //                   _imgFromGallery();
+                    //                 },
+                    //                 // onTap: _imgFromGallery,
+                    //               ),
+                    //             )
+                    //           ],
+                    //         ),
+                    //       )),
+                    // ),
                     Container(
                       margin: EdgeInsets.symmetric(vertical: defaultMargin),
                       decoration: BoxDecoration(

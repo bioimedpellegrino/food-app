@@ -64,7 +64,7 @@
   "dontHaveAnAccount": "Non hai un account?",
   "addWeight": "Aggiungi Peso",
   "weight": "PESO",
-  "manageHealthCalculation": "Gestisci Calcolo Salute",
+  "manageHealthCalculation": "BMI e LOG pesate",
   "manageDietPreference": "Gestisci Preferenze Alimentari",
   "micronutrients": "Micronutrienti"
 }

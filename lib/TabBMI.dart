@@ -32,6 +32,10 @@ class _TabBMI extends State<TabBMI> {
   double height = 30;
   int bmi = 0;
   bool isKg = true;
+  var myControllerIn = TextEditingController();
+  DateTime dateTime = DateTime.now();
+  List<FlSpot> weightData = [];
+  bool isProcessing = false;
 
   void getBmiVal() {
     double weightKg = weight;
@@ -39,26 +43,19 @@ class _TabBMI extends State<TabBMI> {
 
     double meterHeight = heightCm / 100;
     double bmiGet = weightKg / (meterHeight * meterHeight);
-    print("getbmival---$bmiGet--$meterHeight--$weightKg");
     setState(() {
-      // String s = "$bmiGet";
       bmi = bmiGet.toInt();
-      // bmi = int.parse("$bmiGet");
     });
   }
 
-  var myControllerIn = TextEditingController();
-
   getHeights() async {
-    double getWeight = await PrefData().getWeight();
-    double getHeight = await PrefData().getHeight();
+    double getWeight = await PrefData().getWeight(); // non li salvo questi a db, ma sul client
+    double getHeight = await PrefData().getHeight(); // non li salvo questi a db, ma sul client
     isKg = await PrefData().getIsKgUnit();
     weight = getWeight;
     height = getHeight;
     getBmiVal();
   }
-
-  DateTime dateTime = DateTime.now();
 
   void showAddWeightDialog(BuildContext contexts) async {
     var myControllerWeight = TextEditingController();
@@ -176,15 +173,29 @@ class _TabBMI extends State<TabBMI> {
                                     fontSize: 15,
                                     fontWeight: FontWeight.normal),
                               ),
-                              onPressed: () {
-                                if (myControllerWeight.text.isNotEmpty) {
-                                  logWeight(myControllerWeight.text);
+                              onPressed: () async {
+                                if (isProcessing) return;
 
-                                  setState(() {
-                                    // list = _createSampleData(
-                                    //     new OrdinalSales(dateTime.day.toString(), weight1.toInt()));
-                                  });
-                                  Navigator.pop(context);
+                                setState(() {
+                                  isProcessing = true;
+                                });
+
+                                if (myControllerWeight.text.isNotEmpty) {
+                                  
+                                  try {
+                                    Map<String, dynamic> weightLogs = await logWeight(myControllerWeight.text);
+                                    List<FlSpot> spots = await buildSpots(weightLogs);
+                                    setState(() {
+                                      weightData = spots;
+                                      weight = double.parse(myControllerWeight.text);
+                                      Navigator.pop(context);
+                                    });
+                                  }
+                                  finally {
+                                    setState(() {
+                                      isProcessing = false;
+                                    });
+                                  }
                                 }
                               }),
                         ],
@@ -203,9 +214,11 @@ class _TabBMI extends State<TabBMI> {
     });
   }
 
-  void logWeight(String weight) async{
+  Future<Map<String,dynamic>> logWeight(String weight) async{
+    
     String logDate = dateTime.toLocal().toString().split(' ')[0];
     Map<String, dynamic> response = await ApiService().postLogWeight(logDate, weight);
+    
     if( response["status_code"] == 200){
       Fluttertoast.showToast(
         msg: "Misurazione inserita con successo",
@@ -227,6 +240,28 @@ class _TabBMI extends State<TabBMI> {
         fontSize: 16.0,
       );
     }
+
+    Map<String,dynamic> weightLogs = await ApiService().getLogWeightChart();
+    return weightLogs;
+  }
+
+  List<FlSpot> buildSpots(weightLogs) {
+    List<FlSpot> chartData = [];
+    weightLogs.forEach((key, value) {
+      double x = double.parse(key);
+      double y = value.toDouble();
+      FlSpot spot = FlSpot(x, y );
+      chartData.add(spot);
+    });
+    return chartData;
+  }
+
+  void getLogData() async{
+    Map<String,dynamic> weightLogs = await ApiService().getLogWeightChart();
+    List<FlSpot> spots = buildSpots(weightLogs);
+    setState(() {
+      weightData = spots;
+    });
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -787,6 +822,7 @@ class _TabBMI extends State<TabBMI> {
   void initState() {
     getBmiVal();
     getHeights();
+    getLogData();
     // list = _createSampleData(
     //   new OrdinalSales('9', 4),
     // );
@@ -1063,6 +1099,8 @@ class _TabBMI extends State<TabBMI> {
 
                 child: LineChart(
                   mainData(),
+                  swapAnimationDuration: Duration(milliseconds: 2000),
+                  swapAnimationCurve: Curves.decelerate,
                 ),
               )
             ],
@@ -1101,25 +1139,16 @@ class _TabBMI extends State<TabBMI> {
 
           getTitlesWidget: (value, meta) {
 
-            String s='';
-
-            if(value == 2){
-              s = 'MAR';
-            }else if(value == 5){
-              s = 'JUN';
-            }else if(value == 8){
-              s = 'SEP';
-            }
-
+            String s= getXTitles(value);
 
             return Container(
-              margin: EdgeInsets.symmetric(horizontal:4 ),
+              margin: EdgeInsets.symmetric(vertical: 6),
               child: Text(
                 s,
                 style: TextStyle(
                     color: Color(0xff68737d),
                     fontWeight: FontWeight.bold,
-                    fontSize: 10),
+                    fontSize: 9),
               ),
             );
 
@@ -1127,22 +1156,6 @@ class _TabBMI extends State<TabBMI> {
 
 
           },
-          // getTextStyles: (context, value) => const TextStyle(
-          //     color: Color(0xff68737d),
-          //     fontWeight: FontWeight.bold,
-          //     fontSize: 10),
-          // getTitles: (value) {
-          //   switch (value.toInt()) {
-          //     case 2:
-          //       return 'MAR';
-          //     case 5:
-          //       return 'JUN';
-          //     case 8:
-          //       return 'SEP';
-          //   }
-          //   return '';
-          // },
-          // margin: 8,
         )),
         leftTitles: AxisTitles(sideTitles: SideTitles(
           showTitles: true,
@@ -1150,24 +1163,16 @@ class _TabBMI extends State<TabBMI> {
 
           getTitlesWidget: (value, meta) {
 
-            String s='';
-
-            if(value == 1){
-              s = '10k';
-            }else if(value == 3){
-              s = '30k';
-            }else if(value == 5){
-              s = '50k';
-            }
+            String s= getYTitles(value);
 
             return Container(
-              margin: EdgeInsets.symmetric(horizontal:6 ),
+              margin: EdgeInsets.symmetric(horizontal:1),
               child: Text(
                 s,
                 style: TextStyle(
                     color: Color(0xff68737d),
                     fontWeight: FontWeight.bold,
-                    fontSize: 12),
+                    fontSize: 9),
               ),
             );
 
@@ -1184,19 +1189,11 @@ class _TabBMI extends State<TabBMI> {
           border: Border.all(color: const Color(0xff37434d), width: 0)),
       minX: 0,
       maxX: 11,
-      minY: 0,
-      maxY: 6,
+      minY: 30,
+      maxY: 130,
       lineBarsData: [
         LineChartBarData(
-          spots: const [
-            FlSpot(0, 3),
-            FlSpot(2.6, 2),
-            FlSpot(4.9, 5),
-            FlSpot(6.8, 3.1),
-            FlSpot(8, 4),
-            FlSpot(9.5, 3),
-            FlSpot(11, 4),
-          ],
+          spots: weightData,
           isCurved: true,
           barWidth: 5,
           gradient: LinearGradient(
@@ -1207,11 +1204,12 @@ class _TabBMI extends State<TabBMI> {
           dotData: FlDotData(
             show: false,
           ),
+          shadow: Shadow(color: Colors.black, blurRadius: 5),
           belowBarData: BarAreaData(
             show: true,
 
             gradient: LinearGradient(
-                colors: gradientColors
+                colors: gradientColors.map((color) => color.withOpacity(0.5)).toList(),
 
             ),
             // colors:
@@ -1227,40 +1225,67 @@ class _TabBMI extends State<TabBMI> {
     const Color(0xff02d39a),
   ];
 
-  //
-  //
-  // List<charts.Series<OrdinalSales, String>> _createSampleData(OrdinalSales ai) {
-  //   final data = [
-  //     new OrdinalSales('3', 0),
-  //     new OrdinalSales('6', 5),
-  //     new OrdinalSales('15', 8),
-  //     new OrdinalSales('18', 10),
-  //     new OrdinalSales('21', 50),
-  //   ];
-  //     data.add(ai);
-  //
-  //
-  //   return [
-  //     new charts.Series<OrdinalSales, String>(
-  //       id: 'Sales',
-  //       colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
-  //       patternColorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
-  //
-  //       // colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-  //       domainFn: (OrdinalSales sales, _) => sales.year,
-  //       measureFn: (OrdinalSales sales, _) => sales.sales,
-  //       data: data,
-  //
-  //       // seriesColor: primaryColor
-  //     )
-  //   ];
-  //
-  // }
-
   getDecoration() {
     return BoxDecoration(
         color: cellColor,
         borderRadius: BorderRadius.all(Radius.circular(radius)));
+  }
+
+  getXTitles(value){
+    
+    switch(value){
+      case 0:
+        return "GEN";
+      case 1:
+        return "FEB";
+      case 2:
+        return "MAR";
+      case 3:
+        return "APR";
+      case 4:
+        return "MAG";
+      case 5:
+        return "GIU";
+      case 6:
+        return "LUG";
+      case 7:
+        return "AGO";
+      case 8:
+        return "SETT";
+      case 9:
+        return "OTT";
+      case 10:
+        return "NOV";
+      case 11:
+        return "DIC";
+      default:
+        return '';
+    }
+  }
+
+  getYTitles(value){
+    switch(value){
+      case 40:
+        return "40";
+      case 50:
+        return "50";
+      case 60:
+        return "60";
+      case 70:
+        return "70";
+      case 80:
+        return "80";
+      case 90:
+        return "90";
+      case 100:
+        return "100";
+      case 110:
+        return "110";
+      case 120:
+        return "120";
+      default:
+        return '';
+    }
   }
 }
 

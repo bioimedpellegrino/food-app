@@ -700,10 +700,10 @@ class S {
     );
   }
 
-  /// `Gestisci Calcolo Salute`
+  /// `BMI e LOG pesate`
   String get manageHealthCalculation {
     return Intl.message(
-      'Gestisci Calcolo Salute',
+      'BMI e LOG pesate',
       name: 'manageHealthCalculation',
       desc: '',
       args: [],
