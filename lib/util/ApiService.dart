@@ -49,19 +49,51 @@ class ApiService {
     PrefData.setEmail(jsonResponse['email']);
   }
 
-  Future<List<UserModel>?> getUsers() async {
+  Future<UserModel> getUser() async {
+    UserModel user = UserModel.empty();
     try {
-      var url = Uri.parse(ConstantData.apiUrl + 'test/');
-      var response = await http.get(url);
+      var token = await PrefData.getAuthToken();
+      var headers = {
+        'Authorization': 'Token ' + token
+      };
+      var url = Uri.parse(ConstantData.apiUrl + "core/patient/info/");
+      var response = await http.get(url, headers: headers);
       if (response.statusCode == 200) {
-        List<UserModel> _model = userModelFromJson(response.body);
-        return _model;
+        user = userModelFromJson(response.body);
+        return user;
       }
-    } catch (e) {
-      log(e.toString());
+    } catch (e, stacktrace) {
+      log("getUser Error: $e");
+      log("StackTrace: $stacktrace");
     }
-    return null;
+    return user;
   }
+
+  Future<Map<String, dynamic>> postUserData(Map<String, dynamic> userInfo) async {
+    Map<String, dynamic> apiResponse = {};
+    try {
+      var url = Uri.parse(ConstantData.apiUrl + "core/patient/info/");
+      var token = await PrefData.getAuthToken();
+      var headers = {
+        'Authorization': 'Token ' + token
+      };
+
+      var response = await http.post(url, headers: headers, body: userInfo);
+      if (response.statusCode == 200) {
+        apiResponse = json.decode(response.body);
+        return apiResponse;
+      }
+      else{
+        return apiResponse;
+      }
+    } catch (e, stacktrace) {
+      log("postLogWeight Error: $e");
+      log("StackTrace: $stacktrace");
+      return apiResponse;
+    }
+  }
+
+
 
   Future<List<AdviceModel>> getAdvices() async {
     List<AdviceModel> _model = [];

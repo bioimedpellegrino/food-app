@@ -79,6 +79,6 @@ class DailyDietModel{
   }
 
   void printInstance() {
-    print("Name: " + name! + " Category: " + category! + " Total KCAL:" + total_kcal!.toString());
+    print("Name: " + name + " Category: " + category + " Total KCAL:" + total_kcal.toString());
   }
 }

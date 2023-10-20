@@ -1,12 +1,15 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_diet_tips/util/ApiService.dart';
 import 'package:flutter_diet_tips/util/ConstantData.dart';
 import 'package:flutter_diet_tips/util/ConstantWidget.dart';
 import 'package:flutter_diet_tips/util/SizeConfig.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'generated/l10n.dart';
+import 'model/UserModel.dart';
 
 class EditProfilePage extends StatefulWidget {
   @override
@@ -25,9 +28,9 @@ class _EditProfilePage extends State<EditProfilePage> {
       new TextEditingController(text: "");
   TextEditingController weightController =
       new TextEditingController(text: "");
-  TextEditingController ageController = new TextEditingController(text: "");
+  TextEditingController dateController = new TextEditingController();
   TextEditingController phoneController = new TextEditingController();
-
+  DateTime _selectedDate = DateTime.now();
 
   @override
   void initState() {
@@ -40,7 +43,57 @@ class _EditProfilePage extends State<EditProfilePage> {
     genderController.text = "";
     phoneController.text = "";
 
-    setState(() {});
+    setState(() {
+      setUserData();
+    });
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate,
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2101),
+    );
+
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+        dateController.text = "${picked.day}/${picked.month}/${picked.year}";
+      });
+    }
+  }
+
+
+  void setUserData() async {
+      UserModel user = await ApiService().getUser();
+      firstNameController.text = user.name;
+      lastNameController.text = user.surname;
+      mailController.text = user.email;
+      genderController.text = user.gender!;
+      phoneController.text = user.phone;
+      phController.text = user.phone_prefix!;
+      dateController.text = user.birth_date!;
+      heightController.text = user.height.toString();
+      weightController.text = user.weight.toString();
+  }
+
+  Future<Map<String, dynamic>> saveUserData() async {
+    Map<String, dynamic> userData =  {
+      "name": firstNameController.text,
+      "surname": lastNameController.text,
+      "birth_date": dateController.text,
+      "email": mailController.text,
+      "phone_prefix": phController.text,
+      "phone": phoneController.text,
+      "height": heightController.text,
+      "weight": weightController.text,
+      "gender": genderController.text
+    };
+
+    Map<String, dynamic> response = await ApiService().postUserData(userData);
+    return response;
+
   }
 
   Future<bool> _requestPop() {
@@ -233,7 +286,7 @@ class _EditProfilePage extends State<EditProfilePage> {
                             children: [
                               Expanded(
                                 child: getDisableTextFiled(
-                                    "", phController, () {}),
+                                    "Prefisso", phController, () {}),
                                 // child:   getTextFiled(S.of(context).gender,genderController),
                                 flex: 1,
                               ),
@@ -248,14 +301,14 @@ class _EditProfilePage extends State<EditProfilePage> {
                             children: [
                               Expanded(
                                 child: getDisableTextFiled(
-                                    "Height", heightController, () {
+                                    "Altezza", heightController, () {
                                   showHeightDialog(context);
                                 }),
                                 flex: 1,
                               ),
                               Expanded(
                                 child: getDisableTextFiled(
-                                    "Weight", weightController, () {
+                                    "Peso", weightController, () {
                                   showWeightDialog(context);
                                 }),
                                 flex: 1,
@@ -272,9 +325,9 @@ class _EditProfilePage extends State<EditProfilePage> {
                                 flex: 1,
                               ),
                               Expanded(
-                                child: getDisableTextFiled("Age", ageController,
+                                child: getDisableTextFiled("Data di nascita", dateController,
                                     () {
-                                  showAgeDialog(context);
+                                  _selectDate(context);
                                 }),
                                 flex: 1,
                               ),
@@ -290,8 +343,31 @@ class _EditProfilePage extends State<EditProfilePage> {
                 ),
                 Align(
                   alignment: Alignment.bottomCenter,
-                  child: getBottomText(context, S.of(context).save, () {
-                    Navigator.of(context).pop(true);
+                  child: getBottomText(context, S.of(context).save, () async {
+                      Map<String, dynamic> response = await saveUserData();
+                      if(response["message"] == 'ok'){
+                        Fluttertoast.showToast(
+                          msg: "Informazioni salvate con successo",
+                          toastLength: Toast.LENGTH_LONG,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: primaryColor,
+                          textColor: Colors.white,
+                          fontSize: 16.0
+                        );
+                        Navigator.of(context).pop(true);
+                      }
+                      else{
+                        Fluttertoast.showToast(
+                          msg: "Ops! Qualcosa è andato storto",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.red,
+                          textColor: Colors.white,
+                          fontSize: 16.0,
+                        );
+                      }
                   }),
                 ),
               ],
@@ -563,7 +639,7 @@ class _EditProfilePage extends State<EditProfilePage> {
                                 color: textColor,
                                 decorationColor: primaryColor,
                                 fontFamily: ConstantData.fontFamily),
-                            controller: ageController,
+                            controller: dateController,
                           ),
                           flex: 1,
                         ),
